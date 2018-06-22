@@ -8,18 +8,13 @@
     android:background="@android:color/background_light"
     tools:context=".BrowseActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Browse Activity" />
-
     <android.support.v7.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@drawable/round_borders"
+        app:actionViewClass="android.support.v7.widget.SearchView"
         android:iconifiedByDefault="false"
         android:queryHint="Search Here" />
 
