@@ -1,10 +1,18 @@
 package com.example.sandy.getbooks.Models;
 
+import com.example.sandy.getbooks.JSONParser;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Category extends java.util.HashMap<String,String> {
 
     final static String BASE_HOST_URL = "http://172.17.251.111/bookshop/WCFServices/Service.svc/";
 
-    public Category(int CategoryID, String Name) {
+    public Category(String CategoryID, String Name) {
         put("CategoryID", CategoryID);
         put("Name", Name);
     }
@@ -28,7 +36,7 @@ public class Category extends java.util.HashMap<String,String> {
         Category b = null;
         try {
             JSONObject c = JSONParser.getJSONFromUrl(BASE_HOST_URL+"/Category/"+id);
-            b = new Category(c.getInt("CategoryID"),
+            b = new Category(c.getString("CategoryID"),
                     c.getString("Name"));
         } catch (Exception e) {
         }

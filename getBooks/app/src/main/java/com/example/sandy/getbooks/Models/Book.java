@@ -1,10 +1,25 @@
 package com.example.sandy.getbooks.Models;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
+
+import com.example.sandy.getbooks.JSONParser;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Book extends java.util.HashMap<String,String> {
 
     final static String BASE_HOST_URL = "http://172.17.251.111/bookshop/WCFServices/Service.svc/";
 
-    public Book(int BookID, int CategoryID, String ISBN, String Author, int Price, int Stock, String Title) {
+    public Book(String BookID, String CategoryID, String ISBN, String Author, String Price, String Stock, String Title) {
         put("BookID", BookID);
         put("CategoryID", CategoryID);
         put("ISBN", ISBN);
@@ -33,9 +48,9 @@ public class Book extends java.util.HashMap<String,String> {
         Book b = null;
         try {
             JSONObject c = JSONParser.getJSONFromUrl(BASE_HOST_URL+"/Book/"+id);
-            b = new Book(c.getInt("BookID"),
-                    c.getInt("CategoryID"),
-                    c.getString("ISBN"), c.getString("Author"), c.getInt("Price"), c.getInt("Stock"), c.getString("Title")
+            b = new Book(c.getString("BookID"),
+                    c.getString("CategoryID"),
+                    c.getString("ISBN"), c.getString("Author"), c.getString("Price"), c.getString("Stock"), c.getString("Title")
             );
         } catch (Exception e) {
         }

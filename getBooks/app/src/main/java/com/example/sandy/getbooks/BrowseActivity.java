@@ -1,13 +1,10 @@
 package com.example.sandy.getbooks;
 
 import android.content.DialogInterface;
-<<<<<<< HEAD
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
-=======
-import android.content.Intent;
 import android.os.Bundle;
->>>>>>> 710f2419610a98b51c6f00535d991029589d97a8
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
