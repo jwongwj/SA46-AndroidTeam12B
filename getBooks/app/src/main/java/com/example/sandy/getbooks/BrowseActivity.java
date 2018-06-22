@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.widget.Toast;
 
@@ -15,6 +17,11 @@ public class BrowseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
+        int columnNumbers = 2;
+        GridLayoutManager layoutManager = new GridLayoutManager(this, columnNumbers);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerBooks);
+        recyclerView.hasFixedSize();
+        recyclerView.setLayoutManager(layoutManager);
 
         searchView = (SearchView) findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
