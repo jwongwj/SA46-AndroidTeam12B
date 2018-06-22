@@ -78,4 +78,12 @@ public class BooksModel {
         this.Stock = Stock;
         this.Price = Price;
     }
+
+    public static BooksModel getBooks(int bookID){
+        BooksModel a = new BooksModel(1, "title1", 1, "101", "test1", 10, 1);
+        BooksModel b = new BooksModel(2, "title2", 1, "102", "test2", 10, 1);
+        BooksModel c = new BooksModel(3, "title3", 1, "103", "test3", 10, 1);
+        BooksModel d = new BooksModel(4, "title4", 1, "104", "test4", 10, 1);
+        return a;
+    }
 }
