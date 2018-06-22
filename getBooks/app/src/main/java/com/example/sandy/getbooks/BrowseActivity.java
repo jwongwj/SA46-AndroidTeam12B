@@ -25,9 +25,10 @@ public class BrowseActivity extends AppCompatActivity {
 
     private SearchView searchView;
     private String[] data = new String[]{"one","two","three"};
-    private List<BooksModel> booksModel;
+    private List<BooksModel> booksModel,booksModelCopy;
     private BrowseBooksAdapter browseBooksAdapter;
     private int columnNumbers;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +36,12 @@ public class BrowseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_browse);
         columnNumbers = 2;
         booksModel = new ArrayList<>();
+        booksModelCopy = new ArrayList<>();
 
         setContentView(R.layout.activity_browse);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, columnNumbers);
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerBooks);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerBooks);
         recyclerView.hasFixedSize();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
@@ -47,39 +49,49 @@ public class BrowseActivity extends AppCompatActivity {
         browseBooksAdapter = new BrowseBooksAdapter(this, booksModel);
         recyclerView.setAdapter(browseBooksAdapter);
 
-        AddBooks();
+        AddBooks(booksModel);
 
         searchView = (SearchView) findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-                if(data[0].contains(query)){
-//                    adapter.getFilter().filter(query);
-                    Toast.makeText(BrowseActivity.this, "Match found", Toast.LENGTH_LONG).show();
-
-                }else{
-                    Toast.makeText(BrowseActivity.this, "No Match found", Toast.LENGTH_LONG).show();
-                }
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(data[0].contains(newText)){
-//                    adapter.getFilter().filter(query);
-                    Toast.makeText(BrowseActivity.this, "Match found", Toast.LENGTH_LONG).show();
-
-                }else{
-                    Toast.makeText(BrowseActivity.this, "No Match found", Toast.LENGTH_LONG).show();
-                }
-                return false;
+                filter(newText,booksModel); //this. ???
+                return true;
             }
         });
 
     }
 
+    public void filter(String charText,List<BooksModel> originalData){
+        List<BooksModel> copiedData= new ArrayList<>();
+        AddBooks(copiedData); //copiedData now contains original list of data
 
+        charText = charText.toLowerCase();
+
+        originalData.clear();
+
+        if (charText.length() == 0) {
+            originalData.addAll(copiedData);
+        } else {
+            for (BooksModel item : copiedData) {
+                if (item.getTitle().toLowerCase().contains(charText)|| item.getAuthor().toLowerCase().contains(charText)
+                        || String.valueOf(item.getBookID()).toLowerCase().contains(charText)
+                        || String.valueOf(item.getCategoryID()).toLowerCase().contains(charText)
+                        || String.valueOf(item.getISBN()).toLowerCase().contains(charText)) {
+                    originalData.add(item);
+                }
+            }
+        }
+
+        browseBooksAdapter = new BrowseBooksAdapter(this, originalData);
+        recyclerView.setAdapter(browseBooksAdapter);
+        browseBooksAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onBackPressed() {
@@ -97,15 +109,15 @@ public class BrowseActivity extends AppCompatActivity {
                 }).create().show();
     }
 
-    public void AddBooks(){
+    public void AddBooks(List<BooksModel> list){
         BooksModel a = new BooksModel(1, "title2", 1, "100", "test2", 10, 1);
         BooksModel b = new BooksModel(1, "title", 1, "100", "test", 10, 1);
         BooksModel c = new BooksModel(1, "title2", 1, "100", "test2", 10, 1);
         BooksModel d = new BooksModel(1, "title", 1, "100", "test", 10, 1);
-        booksModel.add(a);
-        booksModel.add(b);
-        booksModel.add(c);
-        booksModel.add(d);
+        list.add(a);
+        list.add(b);
+        list.add(c);
+        list.add(d);
     }
 
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
