@@ -1,6 +1,7 @@
 package com.example.sandy.getbooks;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -54,6 +55,9 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
             @Override
             public void onClick(View v) {
                 Toast.makeText(context.getApplicationContext(), booksList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context,BookDetailsActivity.class);
+                intent.putExtra("bookId",  booksList.get(position).getBookID());
+                v.getContext().startActivity(intent);
             }
         });
     }

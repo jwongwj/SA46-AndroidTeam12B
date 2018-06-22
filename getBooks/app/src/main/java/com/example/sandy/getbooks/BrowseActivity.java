@@ -33,23 +33,8 @@ public class BrowseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
-
-
-        // Attempt to launch an activity within our own app
-        Button btnBrowse = (Button)findViewById(R.id.btnBrowse);
-        btnBrowse.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-               Intent intent = new Intent(BrowseActivity.this,BookDetailsActivity.class);
-               intent.putExtra("Rick Riordan",  "@+id/editTextAuthor");
-               startActivity(intent);
-            }
-        });
-
-
         columnNumbers = 2;
         booksModel = new ArrayList<>();
-
 
         setContentView(R.layout.activity_browse);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, columnNumbers);
