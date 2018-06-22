@@ -1,11 +1,17 @@
 package com.example.sandy.getbooks;
 
 import android.content.DialogInterface;
+<<<<<<< HEAD
 import android.content.res.Resources;
 import android.graphics.Rect;
+=======
+import android.content.Intent;
+import android.os.Bundle;
+>>>>>>> 710f2419610a98b51c6f00535d991029589d97a8
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +21,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +35,20 @@ public class BrowseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_browse);
+
+
+        // Attempt to launch an activity within our own app
+        Button btnBrowse = (Button)findViewById(R.id.btnBrowse);
+        btnBrowse.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+               Intent intent = new Intent(BrowseActivity.this,BookDetailsActivity.class);
+               intent.putExtra("Rick Riordan",  "@+id/editTextAuthor");
+               startActivity(intent);
+            }
+        });
+
 
         columnNumbers = 2;
         booksModel = new ArrayList<>();
@@ -75,7 +94,10 @@ public class BrowseActivity extends AppCompatActivity {
                 return false;
             }
         });
+
     }
+
+
 
     @Override
     public void onBackPressed() {
