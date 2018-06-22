@@ -33,7 +33,13 @@ public class BrowseActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //    adapter.getFilter().filter(newText);
+                if(data[0].contains(newText)){
+//                    adapter.getFilter().filter(query);
+                    Toast.makeText(BrowseActivity.this, "Match found", Toast.LENGTH_LONG).show();
+
+                }else{
+                    Toast.makeText(BrowseActivity.this, "No Match found", Toast.LENGTH_LONG).show();
+                }
                 return false;
             }
         });
