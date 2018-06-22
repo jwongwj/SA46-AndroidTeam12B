@@ -58,10 +58,9 @@ public class Book extends java.util.HashMap<String,String> {
     }
 
     final static String imageURL = "http://172.17.251.111/bookshop/images";
-    public static Bitmap getPhoto(boolean thumbnail, String isbn) {
+    public static Bitmap getPhoto(String isbn) {
         try {
-            URL url = (thumbnail ? new URL(String.format("%s/%s-s.jpg",imageURL, isbn)) :
-                    new URL(String.format("%s/%s.jpg",imageURL, isbn)));
+            URL url = new URL(String.format("%s/%s.jpg",imageURL, isbn));
             URLConnection conn = url.openConnection();
             InputStream ins = conn.getInputStream();
             Bitmap bitmap = BitmapFactory.decodeStream(ins);
