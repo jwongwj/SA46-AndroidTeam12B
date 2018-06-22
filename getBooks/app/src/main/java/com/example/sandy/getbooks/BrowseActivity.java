@@ -86,8 +86,12 @@ public class BrowseActivity extends AppCompatActivity {
     public void AddBooks(){
         BooksModel a = new BooksModel(1, "title2", 1, "100", "test2", 10, 1);
         BooksModel b = new BooksModel(1, "title", 1, "100", "test", 10, 1);
+        BooksModel c = new BooksModel(1, "title2", 1, "100", "test2", 10, 1);
+        BooksModel d = new BooksModel(1, "title", 1, "100", "test", 10, 1);
         booksModel.add(a);
         booksModel.add(b);
+        booksModel.add(c);
+        booksModel.add(d);
         browseBooksAdapter.notifyDataSetChanged();
     }
 

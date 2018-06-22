@@ -46,6 +46,7 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+        
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
