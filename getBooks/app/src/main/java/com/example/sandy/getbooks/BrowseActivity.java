@@ -7,17 +7,15 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.Button;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +39,7 @@ public class BrowseActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
                Intent intent = new Intent(BrowseActivity.this,BookDetailsActivity.class);
-               intent.putExtra("Rick Riordan",  "@+id/editTextAuthor");
+               intent.putExtra("Rick Riordan",  "@+id/textViewAuthor");
                startActivity(intent);
             }
         });
