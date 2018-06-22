@@ -11,12 +11,11 @@
     <android.support.v7.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:background="@drawable/round_borders"
         app:actionViewClass="android.support.v7.widget.SearchView"
         android:iconifiedByDefault="false"
-        android:queryHint="Search Here" />
+        android:queryHint="Search Here"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerBooks"
