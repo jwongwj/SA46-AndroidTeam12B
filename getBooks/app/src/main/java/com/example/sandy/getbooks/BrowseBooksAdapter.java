@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sandy.getbooks.Models.Book;
+import com.example.sandy.getbooks.Models.Category;
 
 import org.w3c.dom.Text;
 
@@ -35,13 +36,19 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
         public ImageView BookImage;
         public View view;
         public CardView cardView;
+        public TextView category;
+        public TextView author;
+        public TextView price;
 
         public ViewHolder(View view) {
             super(view);
             this.view = view;
-            this.title = (TextView) view.findViewById(R.id.textView);
-            this.BookImage = (ImageView) view.findViewById(R.id.BookImage);
+            this.title = (TextView) view.findViewById(R.id.bookTitle);
+            this.BookImage = (ImageView) view.findViewById(R.id.bookImage);
             this.cardView = (CardView) view.findViewById(R.id.CardView);
+//            this.category = (TextView) view.findViewById(R.id.bookCategory);
+            this.author = (TextView) view.findViewById(R.id.bookAuthor);
+            this.price = (TextView) view.findViewById(R.id.bookPrice);
         }
     }
 
@@ -58,8 +65,10 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
 //        holder.title.setText(booksList.get(position).getTitle());
 //        holder.title.setText(Book.getBook(booksList.get(position)).get("Title"));
         holder.title.setText(booksList.get(position).get("Title"));
-
-
+        holder.price.setText("$" + booksList.get(position).get("Price"));
+        holder.author.setText(booksList.get(position).get("Author"));
+        Bitmap bitmapResult;
+        Category categoryResult;
         new AsyncTask<Void, Void, Bitmap>() {
             @Override
             protected Bitmap doInBackground(Void... params) {
@@ -70,6 +79,17 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
                 holder.BookImage.setImageBitmap(result);
             }
         }.execute();
+//
+//        new AsyncTask<Void, Void, Category>() {
+//            @Override
+//            protected Category doInBackground(Void... params) {
+//                return Category.getCategory(booksList.get(position).get("CategoryID"));
+//            }
+//            @Override
+//            protected void onPostExecute(Category result) {
+//                holder.category.setText(result.get("Name"));
+//            }
+//        }.execute();
 
 
 
@@ -77,10 +97,9 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context.getApplicationContext(), booksList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(context,BookDetailsActivity.class);
-//                intent.putExtra("bookId",  booksList.get(position).getBookID());
-//                v.getContext().startActivity(intent);
+                Intent intent = new Intent(context,BookDetailsActivity.class);
+                intent.putExtra("bookId",  booksList.get(position).get("BookID"));
+                v.getContext().startActivity(intent);
             }
         });
     }

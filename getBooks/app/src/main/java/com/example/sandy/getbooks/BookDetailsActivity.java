@@ -36,25 +36,18 @@ public class BookDetailsActivity extends AppCompatActivity {
             @Override
             protected Book doInBackground(String... params) {
                 return Book.getBook(String.valueOf(1));
-
             }
 
             @Override
             protected void onPostExecute(Book result) {
                 for (int i = 0; i < view.length; i++) {
-                    TextView tv = (TextView) findViewById(view[i]);
-                    tv.setText(result.get(key[i]));
+                    TextView tvTitle = (TextView) findViewById(view[i]);
+                    tvTitle.setText(result.get(key[i]));
                 }
             }
         }.execute("1");
 
-
-
-
-
-
-
-       if (getIntent().hasExtra("com.example.sandy.getbooks")) {
+        if (getIntent().hasExtra("com.example.sandy.getbooks")) {
             setContentView(R.layout.activity_bookdetails);
         }
     }
