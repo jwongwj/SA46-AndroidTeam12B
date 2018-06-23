@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.sandy.getbooks.Models.Book;
 
+import java.util.List;
+
 
 public class BookDetailsActivity extends AppCompatActivity {
 
@@ -25,35 +27,20 @@ public class BookDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookdetails);
 
+
         String item = getIntent().getExtras().getString("BookID");
         new AsyncTask<String, Void, Book>() {
 
             @Override
             protected Book doInBackground(String... params) {
+
+                List<Book> bookList = Book.listBook();
                 return Book.getBook(String.valueOf(1));
+
             }
 
             @Override
             protected void onPostExecute(Book result) {
-//                TextView tvBID = findViewById(R.id.textViewID);
-//                tvBID.setText(result.getBookID());
-//
-//                TextView tvTitle = findViewById(R.id.textViewTitle);
-//                tvTitle.setText(result.getTitle());
-//
-//                TextView tvAuthor = findViewById(R.id.textViewAuthor);
-//                tvAuthor.setText(result.getAuthor());
-//
-//                TextView tvCategory = findViewById(R.id.textViewCategory);
-//                tvCategory.setText(result.getCategoryID());
-//
-//                TextView tvISBN = findViewById(R.id.textViewISBN);
-//                tvISBN.setText(result.getISBN());
-//
-//                TextView tvPrice = findViewById(R.id.textViewPrice);
-//                tvPrice.setText(String.valueOf(result.getPrice()));
-
-
                 for (int i = 0; i < view.length; i++) {
                     TextView tv = (TextView) findViewById(view[i]);
                     tv.setText(result.get(key[i]));
@@ -61,17 +48,12 @@ public class BookDetailsActivity extends AppCompatActivity {
             }
         }.execute("1");
        if (getIntent().hasExtra("com.example.sandy.getbooks")) {
-            //TextView tv = (TextView) findViewById(R.id.textViewTitle);
-            // String text = getIntent().getExtras().getString("com.example.sandy.getbooks");
-            //tv.setText(text);
-
             setContentView(R.layout.activity_bookdetails);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_editbtn, menu);
         return true;
     }

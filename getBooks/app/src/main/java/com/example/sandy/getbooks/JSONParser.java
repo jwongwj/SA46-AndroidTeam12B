@@ -32,7 +32,8 @@ public class JSONParser {
             e.printStackTrace();
         }
         catch (Exception e){
-            Log.i("getStream", "getStream: " + e.getMessage());
+            Log.i("getstring", "getStream:" + e.getMessage());
+
         }
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(
