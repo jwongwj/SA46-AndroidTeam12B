@@ -29,6 +29,7 @@ public class BrowseActivity extends AppCompatActivity {
     private SearchView searchView;
     private String[] data = new String[]{"one","two","three"};
     private List<BooksModel> booksModel,booksModelCopy;
+    private List<Book> bookList;
     private BrowseBooksAdapter browseBooksAdapter;
     private int columnNumbers;
     private RecyclerView recyclerView;
@@ -45,7 +46,6 @@ public class BrowseActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_browse);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, columnNumbers);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView = (RecyclerView) findViewById(R.id.recyclerBooks);
         recyclerView.hasFixedSize();
         recyclerView.setLayoutManager(layoutManager);
@@ -56,13 +56,13 @@ public class BrowseActivity extends AppCompatActivity {
 //
 //        AddBooks(booksModel);
 
-        new AsyncTask<Void, Void, List<String>>() {
+        new AsyncTask<Void, Void, List<Book>>() {
             @Override
-            protected List<String> doInBackground(Void... params) {
+            protected List<Book> doInBackground(Void... params) {
                 return Book.listBook();
             }
             @Override
-            protected void onPostExecute(List<String> result) {
+            protected void onPostExecute(List<Book> result) {
                 BrowseBooksAdapter adapter = new BrowseBooksAdapter(getApplicationContext(), result);
                 recyclerView.setAdapter(adapter);
             }
@@ -112,16 +112,16 @@ public class BrowseActivity extends AppCompatActivity {
                 }).create().show();
     }
 
-    public void AddBooks(List<BooksModel> list){
-        BooksModel a = new BooksModel(1, "title2", 1, "100", "test2", 10, 1);
-        BooksModel b = new BooksModel(1, "title", 1, "100", "test", 10, 1);
-        BooksModel c = new BooksModel(1, "title2", 1, "100", "test2", 10, 1);
-        BooksModel d = new BooksModel(1, "title", 1, "100", "test", 10, 1);
-        list.add(a);
-        list.add(b);
-        list.add(c);
-        list.add(d);
-    }
+//    public void AddBooks(List<BooksModel> list){
+//        BooksModel a = new BooksModel(1, "title2", 1, "100", "test2", 10, 1);
+//        BooksModel b = new BooksModel(1, "title", 1, "100", "test", 10, 1);
+//        BooksModel c = new BooksModel(1, "title2", 1, "100", "test2", 10, 1);
+//        BooksModel d = new BooksModel(1, "title", 1, "100", "test", 10, 1);
+//        list.add(a);
+//        list.add(b);
+//        list.add(c);
+//        list.add(d);
+//    }
 
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
