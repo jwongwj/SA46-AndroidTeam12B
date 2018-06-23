@@ -1,10 +1,14 @@
 package com.example.sandy.getbooks;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sandy.getbooks.Models.Book;
 
@@ -13,6 +17,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
     final static int []view = {R.id.textViewTitle, R.id.textViewID, R.id.textViewAuthor, R.id.textViewCategory, R.id.textViewISBN, R.id.textViewPrice};
     final static String []key = {"Title", "BookID", "Author", "Category", "ISBN", "Price"};
+    private String bookId;
 
     @SuppressLint("StaticFieldLeak")
     @Override
@@ -22,6 +27,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         String item = getIntent().getExtras().getString("BookID");
         new AsyncTask<String, Void, Book>() {
+
             @Override
             protected Book doInBackground(String... params) {
                 return Book.getBook(String.valueOf(1));
@@ -54,7 +60,6 @@ public class BookDetailsActivity extends AppCompatActivity {
                 }
             }
         }.execute("1");
-
        if (getIntent().hasExtra("com.example.sandy.getbooks")) {
             //TextView tv = (TextView) findViewById(R.id.textViewTitle);
             // String text = getIntent().getExtras().getString("com.example.sandy.getbooks");
@@ -62,6 +67,29 @@ public class BookDetailsActivity extends AppCompatActivity {
 
             setContentView(R.layout.activity_bookdetails);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_editbtn, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.btnEdit) {
+            Intent intent = new Intent(BookDetailsActivity.this, EditBookActivity.class);
+            intent.putExtra("bookId", bookId);
+            startActivity(intent);
+//            finish();
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
