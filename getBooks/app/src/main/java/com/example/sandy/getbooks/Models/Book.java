@@ -19,8 +19,8 @@ import java.util.List;
 public class Book extends java.util.HashMap<String, String> {
 
     final static String BASE_HOST_URL =
-//            "http://172.17.108.89/bookshop/WCFServices/Service.svc/";
-            "http://10.129.34.206/";
+            "http://sa46team12bookshopapi.azurewebsites.net/wcfservices/Service.svc/";
+//            "http://10.129.34.206/";
     public Book(String BookID, String CategoryID, String ISBN, String Author, String Price, String Stock, String Title) {
         put("BookID", BookID);
         put("CategoryID", CategoryID);
@@ -37,7 +37,7 @@ public class Book extends java.util.HashMap<String, String> {
     public static List<Book> listBook() {
         List<Book> list = new ArrayList<Book>();
         try {
-            JSONArray a = JSONParser.getJSONArrayFromUrl(BASE_HOST_URL + "bookshop/WCFServices/Service.svc/Books");
+            JSONArray a = JSONParser.getJSONArrayFromUrl(BASE_HOST_URL + "Books");
             for (int i = 0; i < a.length(); i++) {
                 JSONObject b = a.getJSONObject(i);
                 Gson gson= new Gson();
@@ -67,7 +67,7 @@ public class Book extends java.util.HashMap<String, String> {
     public static Book getBook(String id) {
         Book b = null;
         try {
-            JSONObject c = JSONParser.getJSONFromUrl(BASE_HOST_URL + "bookshop/WCFServices/Service.svc/Book/" + id);
+            JSONObject c = JSONParser.getJSONFromUrl(BASE_HOST_URL + "Book/" + id);
             b = new Book(
                     c.getString("BookID"),
                     c.getString("CategoryID"),
@@ -82,7 +82,7 @@ public class Book extends java.util.HashMap<String, String> {
         return b;
     }
 
-    final static String imageURL = BASE_HOST_URL + "bookshop/images";
+    final static String imageURL = BASE_HOST_URL + "http://sa46team12bookshopapi.azurewebsites.net/wcfservices/Service.svc/images";
 
     public static Bitmap getPhoto(String isbn) {
         try {
