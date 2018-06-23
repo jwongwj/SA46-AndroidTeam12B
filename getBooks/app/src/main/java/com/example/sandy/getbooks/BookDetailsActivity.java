@@ -2,6 +2,7 @@ package com.example.sandy.getbooks;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,12 +30,11 @@ public class BookDetailsActivity extends AppCompatActivity {
 
 
         String item = getIntent().getExtras().getString("BookID");
+
         new AsyncTask<String, Void, Book>() {
 
             @Override
             protected Book doInBackground(String... params) {
-
-                List<Book> bookList = Book.listBook();
                 return Book.getBook(String.valueOf(1));
 
             }
@@ -45,8 +45,33 @@ public class BookDetailsActivity extends AppCompatActivity {
                     TextView tv = (TextView) findViewById(view[i]);
                     tv.setText(result.get(key[i]));
                 }
+
+
+                new AsyncTask<String, Void, Bitmap>() {
+
+                    @Override
+                    protected Book doInBackground(String... params) {
+                        return Book.getBook(String.valueOf(1));
+
+                    }
+
+                    @Override
+                    protected void onPostExecute(Book result) {
+                        for (int i = 0; i < view.length; i++) {
+                            TextView tv = (TextView) findViewById(view[i]);
+                            tv.setText(result.get(key[i]));
+                        }
+                    }
+                }.execute();
             }
         }.execute("1");
+
+
+
+
+
+
+
        if (getIntent().hasExtra("com.example.sandy.getbooks")) {
             setContentView(R.layout.activity_bookdetails);
         }

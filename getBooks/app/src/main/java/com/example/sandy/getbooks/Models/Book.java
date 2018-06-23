@@ -81,7 +81,7 @@ public class Book extends java.util.HashMap<String, String> {
         return b;
     }
 
-    final static String imageURL = "http://172.17.251.111/bookshop/images/";
+    final static String imageURL = "http://172.17.108.89/bookshop/images";
 
     public static Bitmap getPhoto(String isbn) {
         try {
