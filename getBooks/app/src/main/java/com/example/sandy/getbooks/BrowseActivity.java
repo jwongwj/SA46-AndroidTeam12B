@@ -14,23 +14,29 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.TypedValue;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.sandy.getbooks.Models.Book;
+import com.example.sandy.getbooks.Models.Category;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.sandy.getbooks.Models.Category.getCategory;
+import static com.example.sandy.getbooks.Models.Category.listCategory;
+
 public class BrowseActivity extends AppCompatActivity {
 
     private SearchView searchView;
-//    private String[] data = new String[]{"one","two","three"};
     private List<BooksModel> booksModel,booksModelCopy;
     private List<Book> bookList;
+    private List<Category> categoryList;
     private BrowseBooksAdapter browseBooksAdapter;
     private int columnNumbers;
     private RecyclerView recyclerView;
@@ -61,8 +67,10 @@ public class BrowseActivity extends AppCompatActivity {
             @Override
             protected List<Book> doInBackground(Void... params) {
                 bookList=Book.listBook(); //can't do this.bookList?
+
                 return Book.listBook();
             }
+
             @Override
             protected void onPostExecute(List<Book> result) {
                 BrowseBooksAdapter adapter = new BrowseBooksAdapter(getApplicationContext(), result);
@@ -80,6 +88,23 @@ public class BrowseActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+
+                registerForContextMenu(recyclerView);
+
+            }
+        }.execute();
+
+        new AsyncTask<Void, Void, List<Category>>() {
+
+            @Override
+            protected List<Category> doInBackground(Void... params) {
+                categoryList = Category.listCategory2();
+
+                return Category.listCategory2();
+            }
+            @Override
+            protected void onPostExecute(List<Category> result) {
+
             }
         }.execute();
 
@@ -97,16 +122,51 @@ public class BrowseActivity extends AppCompatActivity {
             originalData.addAll(copiedData);
         } else {
             for (Book item : copiedData) {
+                String categoryName = null;
+
+                for(Category c: categoryList){
+                    if(c.get("CategoryID").equals(item.get("CategoryID"))){
+                       categoryName=c.get("Name");
+                   }
+                }
+
                 if (item.get("Author").toLowerCase().contains(charText)|| item.get("ISBN").toLowerCase().contains(charText)
 //                        || String.valueOf(item.getBookID()).toLowerCase().contains(charText)
 //                        || String.valueOf(item.getCategoryID()).toLowerCase().contains(charText)
+                        || categoryName.toLowerCase().contains(charText)
                         || String.valueOf(item.get("Title")).toLowerCase().contains(charText)) {
+                    originalData.add(item);
+
+                }
+            }
+        }
+
+        browseBooksAdapter = new BrowseBooksAdapter(this, originalData);
+        recyclerView.setAdapter(browseBooksAdapter);
+        browseBooksAdapter.notifyDataSetChanged();
+    }
+
+    public void filterCategory(String charText,List<Book> originalData){
+        List<Book> copiedData= new ArrayList<>();
+        copiedData=bookList; //copiedData now contains original list of data
+
+        charText = charText.toLowerCase();
+
+        originalData.clear();
+
+        if (charText.length() == 0) {
+            originalData.addAll(copiedData);
+        } else {
+            for (Book item : copiedData) {
+                Category c = new Category();
+                c= getCategory(item.get("CategoryID"));
+                if (c.get("Name").toLowerCase().contains(charText)) {
                     originalData.add(item);
                 }
             }
         }
 
-//        Toast.makeText(this, "copied data is "+ copiedData, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "copied data is "+ copiedData, Toast.LENGTH_SHORT).show();
         browseBooksAdapter = new BrowseBooksAdapter(this, originalData);
         recyclerView.setAdapter(browseBooksAdapter);
         browseBooksAdapter.notifyDataSetChanged();
@@ -186,6 +246,8 @@ public class BrowseActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search, menu);
+        getMenuInflater().inflate(R.menu.menu_filter, menu);
+
         searchView = (SearchView) menu.findItem(R.id.searchView).getActionView();
 
         return true;
@@ -202,6 +264,43 @@ public class BrowseActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+//    @Override
+//    public void onCreateContextMenu(ContextMenu menu, View v,
+//                                    ContextMenu.ContextMenuInfo menuInfo) {
+////        super.onCreateContextMenu(menu, v, menuInfo);
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_filter, menu);
+//    }
+//
+//    @Override
+//    public boolean onContextItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.item0:
+//                // do something
+//                return true;
+//            case R.id.item1:
+//                // do something
+//                filterCategory("Children",bookList); //this. ???
+//                Toast.makeText(this,"hihi",Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.item2:
+//                // do something
+//                return true;
+//            case R.id.item3:
+//                // do something
+//                return true;
+//            case R.id.item4:
+//                // do something
+//                return true;
+//            case R.id.item5:
+//                // do something
+//                return true;
+//
+//            default:
+//                return super.onContextItemSelected(item);
+//        }
+//    }
 
 
 }
