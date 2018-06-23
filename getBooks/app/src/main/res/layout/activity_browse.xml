@@ -8,20 +8,10 @@
     android:background="@android:color/background_light"
     tools:context=".BrowseActivity">
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search Here"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerBooks"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/searchView" />
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
 
