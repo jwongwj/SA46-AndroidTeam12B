@@ -82,7 +82,7 @@ public class Book extends java.util.HashMap<String, String> {
         return b;
     }
 
-    final static String imageURL = BASE_HOST_URL + "http://sa46team12bookshopapi.azurewebsites.net/wcfservices/Service.svc/images";
+    final static String imageURL =  "http://sa46team12bookshopapi.azurewebsites.net/images";
 
     public static Bitmap getPhoto(String isbn) {
         try {
