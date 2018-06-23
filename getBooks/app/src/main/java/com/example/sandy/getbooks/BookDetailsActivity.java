@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.example.sandy.getbooks.Models.Book;
+
 
 public class BookDetailsActivity extends AppCompatActivity {
 
@@ -19,14 +21,14 @@ public class BookDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bookdetails);
 
         String item = getIntent().getExtras().getString("BookID");
-        new AsyncTask<String, Void, BooksModel>() {
+        new AsyncTask<String, Void, Book>() {
             @Override
-            protected BooksModel doInBackground(String... params) {
-                return BooksModel.getBooks(1);
+            protected Book doInBackground(String... params) {
+                return Book.getBook(String.valueOf(1));
             }
 
             @Override
-            protected void onPostExecute(BooksModel result) {
+            protected void onPostExecute(Book result) {
 //                TextView tvBID = findViewById(R.id.textViewID);
 //                tvBID.setText(result.getBookID());
 //
@@ -48,10 +50,10 @@ public class BookDetailsActivity extends AppCompatActivity {
 
                 for (int i = 0; i < view.length; i++) {
                     TextView tv = (TextView) findViewById(view[i]);
-                    tv.setText(result.getAuthor());
+                    tv.setText(result.get(key[i]));
                 }
             }
-        }.execute(item);
+        }.execute("1");
 
        if (getIntent().hasExtra("com.example.sandy.getbooks")) {
             //TextView tv = (TextView) findViewById(R.id.textViewTitle);
