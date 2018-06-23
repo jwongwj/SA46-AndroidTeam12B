@@ -1,9 +1,11 @@
 package com.example.sandy.getbooks;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,9 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+
+import com.example.sandy.getbooks.Models.Book;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +33,7 @@ public class BrowseActivity extends AppCompatActivity {
     private int columnNumbers;
     private RecyclerView recyclerView;
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,37 +51,50 @@ public class BrowseActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        browseBooksAdapter = new BrowseBooksAdapter(this, booksModel);
-        recyclerView.setAdapter(browseBooksAdapter);
+//        browseBooksAdapter = new BrowseBooksAdapter(this, booksModel);
+//        recyclerView.setAdapter(browseBooksAdapter);
+//
+//        AddBooks(booksModel);
 
-        AddBooks(booksModel);
-    }
-
-    public void filter(String charText,List<BooksModel> originalData){
-        List<BooksModel> copiedData= new ArrayList<>();
-        AddBooks(copiedData); //copiedData now contains original list of data
-
-        charText = charText.toLowerCase();
-
-        originalData.clear();
-
-        if (charText.length() == 0) {
-            originalData.addAll(copiedData);
-        } else {
-            for (BooksModel item : copiedData) {
-                if (item.getTitle().toLowerCase().contains(charText)|| item.getAuthor().toLowerCase().contains(charText)
-                        || String.valueOf(item.getBookID()).toLowerCase().contains(charText)
-                        || String.valueOf(item.getCategoryID()).toLowerCase().contains(charText)
-                        || String.valueOf(item.getISBN()).toLowerCase().contains(charText)) {
-                    originalData.add(item);
-                }
+        new AsyncTask<Void, Void, List<String>>() {
+            @Override
+            protected List<String> doInBackground(Void... params) {
+                return Book.listBook();
             }
-        }
+            @Override
+            protected void onPostExecute(List<String> result) {
+                BrowseBooksAdapter adapter = new BrowseBooksAdapter(getApplicationContext(), result);
+                recyclerView.setAdapter(adapter);
+            }
+        }.execute();
 
-        browseBooksAdapter = new BrowseBooksAdapter(this, originalData);
-        recyclerView.setAdapter(browseBooksAdapter);
-        browseBooksAdapter.notifyDataSetChanged();
     }
+
+//    public void filter(String charText,List<BooksModel> originalData){
+//        List<BooksModel> copiedData= new ArrayList<>();
+//        AddBooks(copiedData); //copiedData now contains original list of data
+//
+//        charText = charText.toLowerCase();
+//
+//        originalData.clear();
+//
+//        if (charText.length() == 0) {
+//            originalData.addAll(copiedData);
+//        } else {
+//            for (BooksModel item : copiedData) {
+//                if (item.getTitle().toLowerCase().contains(charText)|| item.getAuthor().toLowerCase().contains(charText)
+//                        || String.valueOf(item.getBookID()).toLowerCase().contains(charText)
+//                        || String.valueOf(item.getCategoryID()).toLowerCase().contains(charText)
+//                        || String.valueOf(item.getISBN()).toLowerCase().contains(charText)) {
+//                    originalData.add(item);
+//                }
+//            }
+//        }
+//
+//        browseBooksAdapter = new BrowseBooksAdapter(this, originalData);
+//        recyclerView.setAdapter(browseBooksAdapter);
+//        browseBooksAdapter.notifyDataSetChanged();
+//    }
 
     @Override
     public void onBackPressed() {
@@ -160,7 +179,7 @@ public class BrowseActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filter(newText,booksModel); //this. ???
+//                filter(newText,booksModel); //this. ???
                 return true;
             }
         });
