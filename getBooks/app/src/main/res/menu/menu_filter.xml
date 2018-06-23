@@ -11,19 +11,19 @@
     <item
         android:id="@+id/item1"
         android:orderInCategory="101"
-        android:title="Children"
+        android:title="Sales"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/item2"
         android:orderInCategory="102"
-        android:title="Finance"
+        android:title="Children"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/item3"
         android:orderInCategory="103"
-        android:title="Sales"
+        android:title="Finance"
         app:showAsAction="never" />
 
     <item
