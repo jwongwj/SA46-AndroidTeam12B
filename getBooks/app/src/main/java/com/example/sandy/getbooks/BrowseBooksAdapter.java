@@ -46,7 +46,7 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
             this.title = (TextView) view.findViewById(R.id.bookTitle);
             this.BookImage = (ImageView) view.findViewById(R.id.bookImage);
             this.cardView = (CardView) view.findViewById(R.id.CardView);
-//            this.category = (TextView) view.findViewById(R.id.bookCategory);
+            this.category = (TextView) view.findViewById(R.id.bookCategory);
             this.author = (TextView) view.findViewById(R.id.bookAuthor);
             this.price = (TextView) view.findViewById(R.id.bookPrice);
         }
@@ -65,10 +65,9 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
 //        holder.title.setText(booksList.get(position).getTitle());
 //        holder.title.setText(Book.getBook(booksList.get(position)).get("Title"));
         holder.title.setText(booksList.get(position).get("Title"));
-        holder.price.setText("$" + booksList.get(position).get("Price"));
+        double x = Double.valueOf(booksList.get(position).get("Price"));
+        holder.price.setText("$" + String.format("%.2f", x));
         holder.author.setText(booksList.get(position).get("Author"));
-        Bitmap bitmapResult;
-        Category categoryResult;
         new AsyncTask<Void, Void, Bitmap>() {
             @Override
             protected Bitmap doInBackground(Void... params) {
@@ -79,27 +78,50 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
                 holder.BookImage.setImageBitmap(result);
             }
         }.execute();
-//
-//        new AsyncTask<Void, Void, Category>() {
-//            @Override
-//            protected Category doInBackground(Void... params) {
-//                return Category.getCategory(booksList.get(position).get("CategoryID"));
-//            }
-//            @Override
-//            protected void onPostExecute(Category result) {
-//                holder.category.setText(result.get("Name"));
-//            }
-//        }.execute();
+
+        new AsyncTask<Void, Void, Category>() {
+            @Override
+            protected Category doInBackground(Void... params) {
+                return Category.getCategory(booksList.get(position).get("CategoryID"));
+            }
+            @Override
+            protected void onPostExecute(Category result) {
+                holder.category.setText(result.get("Name"));
+            }
+        }.execute();
 
 
 
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context,BookDetailsActivity.class);
-                intent.putExtra("bookId",  booksList.get(position).get("BookID"));
-                v.getContext().startActivity(intent);
+            public void onClick(final View v) {
+                final Intent intent = new Intent(context,BookDetailsActivity.class);
+                new AsyncTask<Void, Void, Bitmap>() {
+                    @Override
+                    protected Bitmap doInBackground(Void... params) {
+                        return Book.getPhoto(booksList.get(position).get("ISBN"));
+                    }
+                    @Override
+                    protected void onPostExecute(Bitmap result) {
+
+                        intent.putExtra("BookID",  booksList.get(position).get("BookID"));
+                        intent.putExtra("bitmap", result);
+
+                    }
+                }.execute();
+
+                new AsyncTask<Void, Void, Category>() {
+                    @Override
+                    protected Category doInBackground(Void... params) {
+                        return Category.getCategory(booksList.get(position).get("CategoryID"));
+                    }
+                    @Override
+                    protected void onPostExecute(Category result) {
+                        intent.putExtra("category", result.get("Name"));
+                        v.getContext().startActivity(intent);
+                    }
+                }.execute();
             }
         });
     }
