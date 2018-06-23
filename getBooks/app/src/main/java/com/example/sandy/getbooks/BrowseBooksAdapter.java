@@ -1,7 +1,9 @@
 package com.example.sandy.getbooks;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sandy.getbooks.Models.Book;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -18,9 +22,9 @@ import java.util.List;
 public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.ViewHolder>{
 
     private Context context;
-    private List<BooksModel> booksList;
+    private List<String> booksList;
 
-    public BrowseBooksAdapter(Context context, List<BooksModel> booksModels){
+    public BrowseBooksAdapter(Context context, List<String> booksModels){
         this.context = context;
         this.booksList = booksModels;
     }
@@ -47,17 +51,33 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
         return new ViewHolder(itemView);
     }
 
+    @SuppressLint("StaticFieldLeak")
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.title.setText(booksList.get(position).getTitle());
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+//        holder.title.setText(booksList.get(position).getTitle());
+//        holder.title.setText(Book.getBook(booksList.get(position)).get("Title"));
+
+        new AsyncTask<Void, Void, Book>() {
+            @Override
+            protected Book doInBackground(Void... params) {
+                return Book.getBook(String.valueOf(position + 1));
+            }
+            @Override
+            protected void onPostExecute(Book result) {
+                holder.title.setText(result.get("Title"));
+            }
+        }.execute();
+
+
+
         holder.BookImage.setImageResource(R.drawable.getbooks_logo);
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context.getApplicationContext(), booksList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context,BookDetailsActivity.class);
-                intent.putExtra("bookId",  booksList.get(position).getBookID());
-                v.getContext().startActivity(intent);
+//                Toast.makeText(context.getApplicationContext(), booksList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(context,BookDetailsActivity.class);
+//                intent.putExtra("bookId",  booksList.get(position).getBookID());
+//                v.getContext().startActivity(intent);
             }
         });
     }
@@ -66,48 +86,4 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
     public int getItemCount() {
         return booksList.size();
     }
-
-//    private Context mContext;
-//    private List<BooksModel> bookList;
-//
-//    public class ViewHolder extends RecyclerView.ViewHolder {
-//        public TextView title, count;
-//        public ImageView thumbnail, overflow;
-//
-//        public ViewHolder(View view) {
-//            super(view);
-//            title = (TextView) view.findViewById(R.id.BookTitle);
-//        }
-//    }
-//
-//
-//    public BrowseBooksAdapter(Context mContext, List<BooksModel> bookList) {
-//        this.mContext = mContext;
-//        this.bookList = bookList;
-//    }
-//
-//    @Override
-//    public BrowseBooksAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        View itemView = LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.view_cardlayout, parent, false);
-//
-//        return new MyViewHolder(itemView);
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(final MyViewHolder holder, int position) {
-//        Album album = albumList.get(position);
-//        holder.title.setText(album.getName());
-//        holder.count.setText(album.getNumOfSongs() + " songs");
-//
-//        // loading album cover using Glide library
-//        Glide.with(mContext).load(album.getThumbnail()).into(holder.thumbnail);
-//
-//        holder.overflow.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                showPopupMenu(holder.overflow);
-//            }
-//        });
-//    }
 }

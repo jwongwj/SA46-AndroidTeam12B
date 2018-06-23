@@ -33,6 +33,7 @@ public class JSONParser {
         }
         catch (Exception e){
             Log.i("getstring", "getStream:" + e.getMessage());
+
         }
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(
