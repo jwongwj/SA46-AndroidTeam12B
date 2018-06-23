@@ -4,7 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
-import com.example.sandy.getbooks.JSONParser;
+import com.example.sandy.getbooks.Utils.Configs;
+import com.example.sandy.getbooks.Utils.JSONParser;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -18,9 +19,6 @@ import java.util.List;
 
 public class Book extends java.util.HashMap<String, String> {
 
-    final static String BASE_HOST_URL =
-            "http://sa46team12bookshopapi.azurewebsites.net/wcfservices/Service.svc/";
-//            "http://10.129.34.206/";
     public Book(String BookID, String CategoryID, String ISBN, String Author, String Price, String Stock, String Title) {
         put("BookID", BookID);
         put("CategoryID", CategoryID);
@@ -37,7 +35,7 @@ public class Book extends java.util.HashMap<String, String> {
     public static List<Book> listBook() {
         List<Book> list = new ArrayList<Book>();
         try {
-            JSONArray a = JSONParser.getJSONArrayFromUrl(BASE_HOST_URL + "Books");
+            JSONArray a = JSONParser.getJSONArrayFromUrl(Configs.BASE_HOST_URL + "Books");
             for (int i = 0; i < a.length(); i++) {
                 JSONObject b = a.getJSONObject(i);
                 Gson gson= new Gson();
@@ -67,7 +65,7 @@ public class Book extends java.util.HashMap<String, String> {
     public static Book getBook(String id) {
         Book b = null;
         try {
-            JSONObject c = JSONParser.getJSONFromUrl(BASE_HOST_URL + "Book/" + id);
+            JSONObject c = JSONParser.getJSONFromUrl(Configs.BASE_HOST_URL + "Book/" + id);
             b = new Book(
                     c.getString("BookID"),
                     c.getString("CategoryID"),
@@ -82,11 +80,10 @@ public class Book extends java.util.HashMap<String, String> {
         return b;
     }
 
-    final static String imageURL =  "http://sa46team12bookshopapi.azurewebsites.net/images";
 
     public static Bitmap getPhoto(String isbn) {
         try {
-            URL url = new URL(String.format("%s/%s.jpg", imageURL, isbn));
+            URL url = new URL(String.format("%s/%s.jpg", Configs.IMAGE_URL, isbn));
             URLConnection conn = url.openConnection();
             InputStream ins = conn.getInputStream();
             Bitmap bitmap = BitmapFactory.decodeStream(ins);
