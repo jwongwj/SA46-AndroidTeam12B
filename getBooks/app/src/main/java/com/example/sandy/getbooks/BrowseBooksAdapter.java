@@ -35,7 +35,6 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
         public TextView title;
         public ImageView BookImage;
         public View view;
-        public CardView cardView;
         public TextView category;
         public TextView author;
         public TextView price;
@@ -45,7 +44,6 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
             this.view = view;
             this.title = (TextView) view.findViewById(R.id.bookTitle);
             this.BookImage = (ImageView) view.findViewById(R.id.bookImage);
-            this.cardView = (CardView) view.findViewById(R.id.CardView);
             this.category = (TextView) view.findViewById(R.id.bookCategory);
             this.author = (TextView) view.findViewById(R.id.bookAuthor);
             this.price = (TextView) view.findViewById(R.id.bookPrice);
@@ -62,8 +60,6 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
     @SuppressLint("StaticFieldLeak")
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-//        holder.title.setText(booksList.get(position).getTitle());
-//        holder.title.setText(Book.getBook(booksList.get(position)).get("Title"));
         holder.title.setText(booksList.get(position).get("Title"));
         double x = Double.valueOf(booksList.get(position).get("Price"));
         holder.price.setText("$" + String.format("%.2f", x));
@@ -89,9 +85,6 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
                 holder.category.setText(result.get("Name"));
             }
         }.execute();
-
-
-
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
