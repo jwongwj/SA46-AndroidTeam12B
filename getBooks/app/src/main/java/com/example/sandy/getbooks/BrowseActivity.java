@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.example.sandy.getbooks.Models.Book;
 
@@ -27,7 +28,7 @@ import java.util.List;
 public class BrowseActivity extends AppCompatActivity {
 
     private SearchView searchView;
-    private String[] data = new String[]{"one","two","three"};
+//    private String[] data = new String[]{"one","two","three"};
     private List<BooksModel> booksModel,booksModelCopy;
     private List<Book> bookList;
     private BrowseBooksAdapter browseBooksAdapter;
@@ -59,42 +60,57 @@ public class BrowseActivity extends AppCompatActivity {
         new AsyncTask<Void, Void, List<Book>>() {
             @Override
             protected List<Book> doInBackground(Void... params) {
+                bookList=Book.listBook(); //can't do this.bookList?
                 return Book.listBook();
             }
             @Override
             protected void onPostExecute(List<Book> result) {
                 BrowseBooksAdapter adapter = new BrowseBooksAdapter(getApplicationContext(), result);
                 recyclerView.setAdapter(adapter);
+
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        filter(newText,Book.listBook()); //this. ???
+                        return true;
+                    }
+                });
             }
         }.execute();
 
     }
 
-//    public void filter(String charText,List<BooksModel> originalData){
-//        List<BooksModel> copiedData= new ArrayList<>();
-//        AddBooks(copiedData); //copiedData now contains original list of data
-//
-//        charText = charText.toLowerCase();
-//
-//        originalData.clear();
-//
-//        if (charText.length() == 0) {
-//            originalData.addAll(copiedData);
-//        } else {
-//            for (BooksModel item : copiedData) {
-//                if (item.getTitle().toLowerCase().contains(charText)|| item.getAuthor().toLowerCase().contains(charText)
+    public void filter(String charText,List<Book> originalData){
+        List<Book> copiedData= new ArrayList<>();
+        copiedData=bookList; //copiedData now contains original list of data
+
+        charText = charText.toLowerCase();
+
+        originalData.clear();
+
+        if (charText.length() == 0) {
+            originalData.addAll(copiedData);
+        } else {
+            for (Book item : copiedData) {
+                if (item.get("Author").toLowerCase().contains(charText)|| item.get("ISBN").toLowerCase().contains(charText)
 //                        || String.valueOf(item.getBookID()).toLowerCase().contains(charText)
 //                        || String.valueOf(item.getCategoryID()).toLowerCase().contains(charText)
-//                        || String.valueOf(item.getISBN()).toLowerCase().contains(charText)) {
-//                    originalData.add(item);
-//                }
-//            }
-//        }
-//
-//        browseBooksAdapter = new BrowseBooksAdapter(this, originalData);
-//        recyclerView.setAdapter(browseBooksAdapter);
-//        browseBooksAdapter.notifyDataSetChanged();
-//    }
+                        || String.valueOf(item.get("Title")).toLowerCase().contains(charText)) {
+                    originalData.add(item);
+                }
+            }
+        }
+
+//        Toast.makeText(this, "copied data is "+ copiedData, Toast.LENGTH_SHORT).show();
+        browseBooksAdapter = new BrowseBooksAdapter(this, originalData);
+        recyclerView.setAdapter(browseBooksAdapter);
+        browseBooksAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onBackPressed() {
@@ -171,18 +187,7 @@ public class BrowseActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search, menu);
         searchView = (SearchView) menu.findItem(R.id.searchView).getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-//                filter(newText,booksModel); //this. ???
-                return true;
-            }
-        });
         return true;
     }
 
