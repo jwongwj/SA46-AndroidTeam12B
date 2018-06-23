@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.example.sandy.getbooks.JSONParser;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,17 +33,34 @@ public class Book extends java.util.HashMap<String, String> {
     public Book() {
     }
 
-    public static List<String> listBook() {
-        List<String> list = new ArrayList<String>();
+    public static List<Book> listBook() {
+        List<Book> list = new ArrayList<Book>();
         try {
             JSONArray a = JSONParser.getJSONArrayFromUrl(BASE_HOST_URL + "Books");
             for (int i = 0; i < a.length(); i++) {
-                String c = a.getString(i);
-                list.add(c);
+                JSONObject b = a.getJSONObject(i);
+                Gson gson= new Gson();
+                Book book = gson.fromJson(b.toString(),Book.class);
+                list.add(book);
             }
         } catch (Exception e) {
         }
         return list;
+    }
+
+    public static List<String> listBookID(){
+        List<String> listBookID = new ArrayList<String>();
+        try{
+            List<Book> listBook = listBook();
+            for (Book b :listBook) {
+                listBookID.add(b.get("BookID"));
+            }
+            return listBookID;
+        }
+        catch (Exception e){
+
+        }
+        return listBookID;
     }
 
     public static Book getBook(String id) {
