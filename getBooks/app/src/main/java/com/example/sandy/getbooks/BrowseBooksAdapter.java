@@ -3,6 +3,7 @@ package com.example.sandy.getbooks;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -22,9 +23,9 @@ import java.util.List;
 public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.ViewHolder>{
 
     private Context context;
-    private List<String> booksList;
+    private List<Book> booksList;
 
-    public BrowseBooksAdapter(Context context, List<String> booksModels){
+    public BrowseBooksAdapter(Context context, List<Book> booksModels){
         this.context = context;
         this.booksList = booksModels;
     }
@@ -56,21 +57,23 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 //        holder.title.setText(booksList.get(position).getTitle());
 //        holder.title.setText(Book.getBook(booksList.get(position)).get("Title"));
+        holder.title.setText(booksList.get(position).get("Title"));
 
-        new AsyncTask<Void, Void, Book>() {
+
+        new AsyncTask<Void, Void, Bitmap>() {
             @Override
-            protected Book doInBackground(Void... params) {
-                return Book.getBook(String.valueOf(position + 1));
+            protected Bitmap doInBackground(Void... params) {
+                return Book.getPhoto(booksList.get(position).get("ISBN"));
             }
             @Override
-            protected void onPostExecute(Book result) {
-                holder.title.setText(result.get("Title"));
+            protected void onPostExecute(Bitmap result) {
+                holder.BookImage.setImageBitmap(result);
             }
         }.execute();
 
 
 
-        holder.BookImage.setImageResource(R.drawable.getbooks_logo);
+
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
