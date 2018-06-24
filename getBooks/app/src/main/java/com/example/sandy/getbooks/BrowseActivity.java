@@ -278,7 +278,7 @@ public class BrowseActivity extends AppCompatActivity {
                     }
                 });
 
-                MenuItem item2 = menu.findItem(R.id.item2);
+                MenuItem item2 = menu.findItem(R.id.item1);
                 item2.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -287,7 +287,7 @@ public class BrowseActivity extends AppCompatActivity {
                     }
                 });
 
-                MenuItem item3 = menu.findItem(R.id.item3);
+                MenuItem item3 = menu.findItem(R.id.item2);
                 item3.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -296,7 +296,7 @@ public class BrowseActivity extends AppCompatActivity {
                     }
                 });
 
-                MenuItem item4 = menu.findItem(R.id.item4);
+                MenuItem item4 = menu.findItem(R.id.item3);
                 item4.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -305,7 +305,7 @@ public class BrowseActivity extends AppCompatActivity {
                     }
                 });
 
-                MenuItem item5 = menu.findItem(R.id.item5);
+                MenuItem item5 = menu.findItem(R.id.item4);
                 item5.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {

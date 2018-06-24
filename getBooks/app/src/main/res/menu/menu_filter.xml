@@ -11,32 +11,25 @@
     <item
         android:id="@+id/item1"
         android:orderInCategory="101"
-        android:title="@string/sales"
+        android:title="@string/children"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/item2"
         android:orderInCategory="102"
-        android:title="@string/children"
+        android:title="@string/finance"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/item3"
         android:orderInCategory="103"
-        android:title="@string/finance"
+        android:title="@string/non_fiction"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/item4"
         android:orderInCategory="104"
-        android:title="@string/non_fiction"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/item5"
-        android:orderInCategory="105"
         android:title="@string/technical"
         app:showAsAction="never" />
-
 
 </menu>
