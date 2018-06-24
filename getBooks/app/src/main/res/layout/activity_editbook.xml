@@ -20,7 +20,7 @@
         android:background="@drawable/round_borders"/>
 
     <EditText
-        android:id="@+id/textViewTItle"
+        android:id="@+id/evTitle"
         android:layout_width="236dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textViewTItleLabel"
@@ -55,14 +55,14 @@
         android:layout_width="242dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textViewAuthorLabel"
-        android:layout_alignEnd="@+id/textViewTItle"
+        android:layout_alignEnd="@+id/evTitle"
         android:textSize="14sp" />
 
     <TextView
         android:id="@+id/textViewISBN"
         android:layout_width="241dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textViewTItle"
+        android:layout_alignStart="@+id/evTitle"
         android:layout_alignTop="@+id/textViewISBNLabel"
         android:text="ISBN"
         android:textSize="14sp" />
@@ -71,7 +71,7 @@
         android:id="@+id/editViewPrice"
         android:layout_width="244dp"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textViewTItle"
+        android:layout_alignEnd="@+id/evTitle"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="55dp"
         android:textSize="14sp" />
@@ -107,6 +107,16 @@
         android:layout_alignStart="@+id/textViewCategoryLabel"
         android:layout_marginBottom="104dp"
         android:text="ISBN:"
+        android:textSize="14sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/lblPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editViewPrice"
+        android:layout_alignStart="@+id/textViewCategoryLabel"
+        android:text="Price : "
         android:textSize="14sp"
         android:textStyle="bold|italic" />
 

@@ -1,29 +1,22 @@
 package com.example.sandy.getbooks;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sandy.getbooks.Models.Book;
-
-import org.w3c.dom.Text;
-
-import java.util.List;
+import com.example.sandy.getbooks.Models.Category;
 
 public class EditBookActivity extends AppCompatActivity {
-
 
 
     @SuppressLint("StaticFieldLeak")
@@ -40,6 +33,7 @@ public class EditBookActivity extends AppCompatActivity {
                 Book b = Book.getBook(params[0]);
                 return Book.getPhoto(b.get("ISBN"));
             }
+
             @Override
             protected void onPostExecute(Bitmap result) {
                 ImageView iv = (ImageView) findViewById(R.id.imageView);
@@ -55,8 +49,7 @@ public class EditBookActivity extends AppCompatActivity {
             }
 
             @Override
-            protected void onPostExecute(Book result)
-            {
+            protected void onPostExecute(Book result) {
                 TextView tvISBN = (TextView) findViewById(R.id.textViewISBN);
                 tvISBN.setText(result.get("ISBN"));
 
@@ -64,7 +57,7 @@ public class EditBookActivity extends AppCompatActivity {
                 etAuthor.setText(result.get("Author"));
 
 
-                EditText etTitle = (EditText) findViewById(R.id.editViewTitle);
+                EditText etTitle = (EditText) findViewById(R.id.evTitle);
                 etTitle.setText(result.get("Title"));
 
 
@@ -73,6 +66,22 @@ public class EditBookActivity extends AppCompatActivity {
             }
         }.execute(BookID);
 
+
+
+        new AsyncTask<String, Void, String>() {
+            @Override
+            protected String doInBackground(String... params) {
+                Book b = Book.getBook(params[0]);
+                Category c = Category.getCategory(b.get("CategoryID"));
+                return c.get("Name");
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                TextView iv = (TextView) findViewById(R.id.textViewCategory);
+                iv.setText(result);
+            }
+        }.execute(BookID);
 
 
     }
@@ -100,22 +109,29 @@ public class EditBookActivity extends AppCompatActivity {
             }
 
             @Override
-            protected void onPostExecute(Book result)
-            {
+            protected void onPostExecute(Book result) {
 
                 EditText etAuthor = (EditText) findViewById(R.id.editViewAuthor);
-                EditText etTitle = (EditText) findViewById(R.id.editViewTitle);
+                EditText etTitle = (EditText) findViewById(R.id.evTitle);
                 EditText etPrice = (EditText) findViewById(R.id.editViewPrice);
 
                 result.remove("Author");
                 result.put("Author", etAuthor.getText().toString());
+
+                result.remove("Title");
+                result.put("Title", etTitle.getText().toString());
+
+                result.remove("Price");
+                result.put("Price", etPrice.getText().toString());
                 Book.updateBook(result);
 
 
             }
         }.execute(BookID);
 
+        Toast.makeText(this, "Update Success", Toast.LENGTH_LONG).show();
+
         finish();
-            return true;
+        return true;
     }
 }

@@ -116,28 +116,4 @@ public class JSONParser {
         }
         return(sb.toString());
     }
-
-//    public static void updateJSONtoUrl(String url, String json) {
-//        try {
-//            URL u = new URL(url); //Enter URL here
-//            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
-//            conn.setDoOutput(true);
-//            conn.setRequestMethod("POST");
-//            conn.setRequestProperty("Content-Type", "application/json");
-//            conn.connect();
-//            DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
-//            wr.writeBytes(json);
-//            wr.flush();
-//            wr.close();
-//
-//        } catch (ProtocolException e) {
-//            e.printStackTrace();
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }catch (Exception e) {
-//            Log.i("Exception", "updateJSONtoUrl: " + e.getMessage());
-//        }
-//    }
 }

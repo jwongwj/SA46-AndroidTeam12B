@@ -10,18 +10,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sandy.getbooks.Models.Book;
-
-import java.util.List;
 
 
 public class BookDetailsActivity extends AppCompatActivity {
 
-    final static int []view = {R.id.textViewTitle, R.id.textViewID, R.id.textViewAuthor, R.id.textViewISBN, R.id.textViewPrice, R.id.textViewQty};
-    final static String []key = {"Title", "BookID", "Author", "ISBN", "Price", "Stock"};
+    final static int[] view = {R.id.textViewTitle, R.id.textViewID, R.id.textViewAuthor, R.id.textViewISBN, R.id.textViewPrice, R.id.textViewQty};
+    final static String[] key = {"Title", "BookID", "Author", "ISBN", "Price", "Stock"};
     private String bookId;
+
     @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,35 +29,35 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         final String item = getIntent().getExtras().getString("BookID");
 
+        bookId = item;
+
         new AsyncTask<String, Void, Book>() {
 
             @Override
             protected Book doInBackground(String... params) {
                 return Book.getBook(item);
             }
+
             @Override
             protected void onPostExecute(Book result) {
                 for (int i = 0; i < view.length; i++) {
-                    TextView tvTitle = (TextView) findViewById(view[i]);
-                    if(i == view.length-2){
+                    TextView tvTitle = findViewById(view[i]);
+                    if (i == view.length - 2) {
                         double x = Double.parseDouble(result.get(key[i]));
                         tvTitle.setText("$" + String.format("%.2f", x));
-                    }
-                    else
-                        if(i == view.length -1){
-                            tvTitle.setText("Qty: " + result.get(key[i]));
-                        }
-                    else
-                    tvTitle.setText(result.get(key[i]));
+                    } else if (i == view.length - 1) {
+                        tvTitle.setText("Qty: " + result.get(key[i]));
+                    } else
+                        tvTitle.setText(result.get(key[i]));
                 }
             }
-        }.execute("1");
+        }.execute(item);
 
-        ImageView iv = (ImageView) findViewById(R.id.indvBookImage);
-        Bitmap bt = (Bitmap) getIntent().getParcelableExtra("bitmap");
+        ImageView iv = findViewById(R.id.indvBookImage);
+        Bitmap bt = getIntent().getParcelableExtra("bitmap");
         iv.setImageBitmap(bt);
 
-        TextView cat = (TextView) findViewById(R.id.textViewCategory);
+        TextView cat = findViewById(R.id.textViewCategory);
         cat.setText(getIntent().getExtras().getString("category"));
 
         if (getIntent().hasExtra("com.example.sandy.getbooks")) {
@@ -79,7 +77,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         if (id == R.id.btnEdit) {
             Intent intent = new Intent(BookDetailsActivity.this, EditBookActivity.class);
-            intent.putExtra("bookId", bookId);
+            intent.putExtra("BookID", bookId);
             startActivity(intent);
 //            finish();
 
@@ -87,6 +85,11 @@ public class BookDetailsActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
     }
 
 }
