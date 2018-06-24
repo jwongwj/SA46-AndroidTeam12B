@@ -2,7 +2,6 @@ package com.example.sandy.getbooks;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.AsyncTask;
@@ -14,23 +13,17 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.TypedValue;
-import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sandy.getbooks.Models.Book;
 import com.example.sandy.getbooks.Models.Category;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.sandy.getbooks.Models.Category.getCategory;
-import static com.example.sandy.getbooks.Models.Category.listCategory;
 
 public class BrowseActivity extends AppCompatActivity {
 
@@ -42,6 +35,8 @@ public class BrowseActivity extends AppCompatActivity {
     private int columnNumbers;
     private RecyclerView recyclerView;
     private TextView tvDisplayResults;
+    private ProgressBar progressBar;
+
 
     @SuppressLint("StaticFieldLeak")
     @Override
@@ -62,6 +57,7 @@ public class BrowseActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         tvDisplayResults=(TextView) findViewById(R.id.tvBrowseLabel);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         new AsyncTask<Void, Void, List<Book>>() {
             @Override
@@ -72,8 +68,13 @@ public class BrowseActivity extends AppCompatActivity {
             }
 
             @Override
+            protected void onPreExecute() {
+                progressBar.isShown();
+            }
+
+            @Override
             protected void onPostExecute(List<Book> result) {
-                BrowseBooksAdapter adapter = new BrowseBooksAdapter(getApplicationContext(), result);
+                BrowseBooksAdapter adapter = new BrowseBooksAdapter(getApplicationContext(), result,progressBar,searchView);
                 recyclerView.setAdapter(adapter);
                 tvDisplayResults.setText("Display Results for: All ("+result.size()+")");
 
@@ -89,6 +90,9 @@ public class BrowseActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+
+                if(progressBar.isShown()){
+                    progressBar.setVisibility(View.GONE);}
             }
         }.execute();
 
@@ -140,7 +144,7 @@ public class BrowseActivity extends AppCompatActivity {
             tvDisplayResults.setText("Display Results for: "+searchView.getQuery()+" ("+originalData.size()+")");
         }
 
-        browseBooksAdapter = new BrowseBooksAdapter(this, originalData);
+        browseBooksAdapter = new BrowseBooksAdapter(this, originalData,progressBar,searchView);
         recyclerView.setAdapter(browseBooksAdapter);
         browseBooksAdapter.notifyDataSetChanged();
     }
@@ -174,7 +178,7 @@ public class BrowseActivity extends AppCompatActivity {
             tvDisplayResults.setText("Display Results for: "+charText+" ("+originalData.size()+")");
         }
 
-        browseBooksAdapter = new BrowseBooksAdapter(this, originalData);
+        browseBooksAdapter = new BrowseBooksAdapter(this, originalData,progressBar,searchView);
         recyclerView.setAdapter(browseBooksAdapter);
         browseBooksAdapter.notifyDataSetChanged();
     }
@@ -255,8 +259,13 @@ public class BrowseActivity extends AppCompatActivity {
             }
 
             @Override
+            protected void onPreExecute() {
+                progressBar.isShown();
+            }
+
+            @Override
             protected void onPostExecute(List<Book> result) {
-                BrowseBooksAdapter adapter = new BrowseBooksAdapter(getApplicationContext(), result);
+                BrowseBooksAdapter adapter = new BrowseBooksAdapter(getApplicationContext(), result,progressBar,searchView);
                 recyclerView.setAdapter(adapter);
 
                 MenuItem item0 = menu.findItem(R.id.item0);
@@ -304,6 +313,8 @@ public class BrowseActivity extends AppCompatActivity {
                     }
                 });
 
+                if(progressBar.isShown()){
+                    progressBar.setVisibility(View.GONE);}
             }
         }.execute();
 

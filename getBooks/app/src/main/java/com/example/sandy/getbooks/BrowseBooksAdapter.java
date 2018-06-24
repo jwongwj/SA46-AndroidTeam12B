@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +27,17 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
 
     private Context context;
     private List<Book> booksList;
+    private ProgressBar progressBar;
+    private boolean imgLoadFlag =false;
+    private boolean categoryLoadFlag =false;
+    private boolean intentStarted =false;
+    private android.support.v7.widget.SearchView searchView;
 
-    public BrowseBooksAdapter(Context context, List<Book> booksModels){
+    public BrowseBooksAdapter(Context context, List<Book> booksModels, ProgressBar progressBar, android.support.v7.widget.SearchView searchView){
         this.context = context;
         this.booksList = booksModels;
+        this.progressBar = progressBar;
+        this.searchView=searchView;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -69,9 +78,19 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
             protected Bitmap doInBackground(Void... params) {
                 return Book.getPhoto(booksList.get(position).get("ISBN"));
             }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
             @Override
             protected void onPostExecute(Bitmap result) {
                 holder.BookImage.setImageBitmap(result);
+
+                if(intentStarted==false && progressBar.isShown()){
+                    progressBar.setVisibility(View.GONE);}
             }
         }.execute();
 
@@ -80,6 +99,7 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
             protected Category doInBackground(Void... params) {
                 return Category.getCategory(booksList.get(position).get("CategoryID"));
             }
+
             @Override
             protected void onPostExecute(Category result) {
                 holder.category.setText(result.get("Name"));
@@ -90,17 +110,32 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
             @Override
             public void onClick(final View v) {
                 final Intent intent = new Intent(context,BookDetailsActivity.class);
+                intentStarted=true;
+                //remove focus on searchview
+                searchView.clearFocus();
+//                searchView.onActionViewCollapsed();
+
                 new AsyncTask<Void, Void, Bitmap>() {
                     @Override
                     protected Bitmap doInBackground(Void... params) {
                         return Book.getPhoto(booksList.get(position).get("ISBN"));
                     }
+
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+
                     @Override
                     protected void onPostExecute(Bitmap result) {
-
                         intent.putExtra("BookID",  booksList.get(position).get("BookID"));
                         intent.putExtra("bitmap", result);
 
+                        imgLoadFlag=true;
+
+                        if(categoryLoadFlag=true && progressBar.isShown()){
+                            progressBar.setVisibility(View.GONE);}
                     }
                 }.execute();
 
@@ -109,10 +144,22 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
                     protected Category doInBackground(Void... params) {
                         return Category.getCategory(booksList.get(position).get("CategoryID"));
                     }
+
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+
                     @Override
                     protected void onPostExecute(Category result) {
                         intent.putExtra("category", result.get("Name"));
                         v.getContext().startActivity(intent);
+
+                        categoryLoadFlag=true;
+
+                        if(imgLoadFlag=true && progressBar.isShown()){
+                            progressBar.setVisibility(View.GONE);}
                     }
                 }.execute();
             }
