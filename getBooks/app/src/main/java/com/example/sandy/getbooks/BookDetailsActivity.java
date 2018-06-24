@@ -1,10 +1,12 @@
 package com.example.sandy.getbooks;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -86,10 +88,15 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        finish();
+//    }
+
     @Override
-    protected void onRestart() {
-        super.onRestart();
-        finish();
+    public void onBackPressed() {
+        startActivity(new Intent(this, BrowseActivity.class));
     }
 
 }

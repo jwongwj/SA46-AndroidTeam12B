@@ -32,18 +32,18 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
     private boolean imgLoadFlag =false;
     private boolean categoryLoadFlag =false;
     private boolean intentStarted =false;
-    private android.support.v7.widget.SearchView searchView;
+//    private android.support.v7.widget.SearchView searchView;
     private Activity activity;
 
     public BrowseBooksAdapter(){
 
     }
 
-    public BrowseBooksAdapter(Activity activity, Context context, List<Book> booksModels, ProgressBar progressBar, android.support.v7.widget.SearchView searchView){
+    public BrowseBooksAdapter(Activity activity, Context context, List<Book> booksModels, ProgressBar progressBar){
         this.context = context;
         this.booksList = booksModels;
         this.progressBar = progressBar;
-        this.searchView=searchView;
+//        this.searchView=searchView;
         this.activity = activity;
     }
 
@@ -119,7 +119,7 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
                 final Intent intent = new Intent(context,BookDetailsActivity.class);
                 intentStarted=true;
                 //remove focus on searchview
-                searchView.clearFocus();
+//                searchView.clearFocus();
 //                searchView.onActionViewCollapsed();
 
                 new AsyncTask<Void, Void, Bitmap>() {
@@ -143,6 +143,7 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
 
                         if(categoryLoadFlag=true && progressBar.isShown()){
                             progressBar.setVisibility(View.GONE);}
+                            activity.finish();
                     }
                 }.execute();
 
@@ -167,10 +168,9 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
 
                         if(imgLoadFlag=true && progressBar.isShown()){
                             progressBar.setVisibility(View.GONE);}
-
+                            activity.finish();
                     }
                 }.execute();
-                activity.finish();
 
             }
         });

@@ -91,7 +91,7 @@ public class EditBookActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_savebtn, menu);
+        getMenuInflater().inflate(R.menu.menu_savecancel, menu);
         return true;
     }
 
@@ -99,43 +99,58 @@ public class EditBookActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
 
-        String BookID = getIntent().getExtras().getString("BookID");
-        new AsyncTask<String, Void, Book>() {
+        int id = item.getItemId();
 
-            @Override
-            protected Book doInBackground(String... params) {
-                return Book.getBook(params[0]);
-            }
+        if (id == R.id.btnSave) {
 
-            @Override
-            protected void onPostExecute(Book result) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
 
-                EditText etAuthor = (EditText) findViewById(R.id.editViewAuthor);
-                EditText etTitle = (EditText) findViewById(R.id.evTitle);
-                EditText etPrice = (EditText) findViewById(R.id.editViewPrice);
+            String BookID = getIntent().getExtras().getString("BookID");
+            new AsyncTask<String, Void, Book>() {
 
-                result.remove("Author");
-                result.put("Author", etAuthor.getText().toString());
+                @Override
+                protected Book doInBackground(String... params) {
+                    return Book.getBook(params[0]);
+                }
 
-                result.remove("Title");
-                result.put("Title", etTitle.getText().toString());
+                @Override
+                protected void onPostExecute(Book result) {
 
-                result.remove("Price");
-                result.put("Price", etPrice.getText().toString());
-                Book.updateBook(result);
+                    EditText etAuthor = (EditText) findViewById(R.id.editViewAuthor);
+                    EditText etTitle = (EditText) findViewById(R.id.evTitle);
+                    EditText etPrice = (EditText) findViewById(R.id.editViewPrice);
+
+                    result.remove("Author");
+                    result.put("Author", etAuthor.getText().toString());
+
+                    result.remove("Title");
+                    result.put("Title", etTitle.getText().toString());
+
+                    result.remove("Price");
+                    result.put("Price", etPrice.getText().toString());
+                    Book.updateBook(result);
 
 
-            }
-        }.execute(BookID);
+                }
+            }.execute(BookID);
 
-        Toast.makeText(this, "Update Success", Toast.LENGTH_LONG).show();
-        adapter.notifyDataSetChanged();
-        finish();
-        Intent intent = new Intent(this, BrowseActivity.class);
-        startActivity(intent);
-        return true;
+            Toast.makeText(this, "Update Success", Toast.LENGTH_LONG).show();
+            adapter.notifyDataSetChanged();
+            finish();
+            Intent intent = new Intent(this, BrowseActivity.class);
+            startActivity(intent);
+
+            return true;
+        }
+
+        if (id == R.id.btnCancel) {
+            finish();
+            startActivity(new Intent(this, BrowseActivity.class));
+
+            return true;
+        }
+            return super.onOptionsItemSelected(item);
     }
 }

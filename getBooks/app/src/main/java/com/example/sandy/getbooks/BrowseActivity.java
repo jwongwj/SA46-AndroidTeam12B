@@ -74,7 +74,7 @@ public class BrowseActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(List<Book> result) {
-                BrowseBooksAdapter adapter = new BrowseBooksAdapter(BrowseActivity.this, getApplicationContext(), result,progressBar,searchView);
+                BrowseBooksAdapter adapter = new BrowseBooksAdapter(BrowseActivity.this, getApplicationContext(), result,progressBar);
                 recyclerView.setAdapter(adapter);
                 tvDisplayResults.setText("Display Results for: All ("+result.size()+")");
 
@@ -144,7 +144,7 @@ public class BrowseActivity extends AppCompatActivity {
             tvDisplayResults.setText("Display Results for: "+searchView.getQuery()+" ("+originalData.size()+")");
         }
 
-        browseBooksAdapter = new BrowseBooksAdapter(BrowseActivity.this, this, originalData,progressBar,searchView);
+        browseBooksAdapter = new BrowseBooksAdapter(BrowseActivity.this, this, originalData,progressBar);
         recyclerView.setAdapter(browseBooksAdapter);
         browseBooksAdapter.notifyDataSetChanged();
     }
@@ -178,7 +178,7 @@ public class BrowseActivity extends AppCompatActivity {
             tvDisplayResults.setText("Display Results for: "+charText+" ("+originalData.size()+")");
         }
 
-        browseBooksAdapter = new BrowseBooksAdapter(BrowseActivity.this, this, originalData,progressBar,searchView);
+        browseBooksAdapter = new BrowseBooksAdapter(BrowseActivity.this, this, originalData,progressBar);
         recyclerView.setAdapter(browseBooksAdapter);
         browseBooksAdapter.notifyDataSetChanged();
     }
@@ -266,7 +266,7 @@ public class BrowseActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(List<Book> result) {
-                BrowseBooksAdapter adapter = new BrowseBooksAdapter(BrowseActivity.this, getApplicationContext(), result,progressBar,searchView);
+                BrowseBooksAdapter adapter = new BrowseBooksAdapter(BrowseActivity.this, getApplicationContext(), result,progressBar);
                 recyclerView.setAdapter(adapter);
 
                 MenuItem item0 = menu.findItem(R.id.item0);
