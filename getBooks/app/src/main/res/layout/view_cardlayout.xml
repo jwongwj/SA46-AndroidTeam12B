@@ -30,7 +30,8 @@
                 android:layout_below="@id/bookImage"
                 android:paddingTop="2dp"
                 android:gravity="center_horizontal"
-                android:fontFamily="sans-serif"/>
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/bookAuthor"
@@ -40,7 +41,8 @@
                 android:layout_below="@id/bookTitle"
                 android:paddingTop="5dp"
                 android:gravity="center_horizontal"
-                android:fontFamily="sans-serif"/>
+                android:fontFamily="sans-serif"
+                android:textStyle="italic"/>
 
             <TextView
                 android:id="@+id/bookCategory"

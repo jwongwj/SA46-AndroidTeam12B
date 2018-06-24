@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="Save"
+        android:title="@string/save"
         android:id="@+id/btnSave"
         android:orderInCategory="300"
         android:icon="@android:drawable/ic_menu_save"

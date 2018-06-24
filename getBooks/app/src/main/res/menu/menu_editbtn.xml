@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="Item"
+        android:title="@string/item"
         android:id="@+id/btnEdit"
         android:orderInCategory="300"
         android:icon="@android:drawable/ic_menu_edit"

@@ -24,7 +24,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/imageView"
         android:layout_marginTop="14dp"
-        android:text="Title"
         android:fontFamily="serif"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -40,7 +39,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginTop="96dp"
         android:fontFamily="serif"
-        android:text="Price"
+        android:text="@string/price"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -65,7 +64,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/imageView"
         android:layout_marginBottom="204dp"
-        android:text="Book ID:"
+        android:text="@string/book_id"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -76,7 +75,7 @@
         android:layout_alignStart="@+id/textViewCategory"
         android:layout_alignTop="@+id/textViewIDLabel"
         android:layout_marginStart="1dp"
-        android:text="ID"
+        android:text="@string/id"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -88,7 +87,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/imageView"
         android:layout_marginBottom="103dp"
-        android:text="Author:"
+        android:text="@string/author"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -98,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textViewCategory"
         android:layout_alignTop="@+id/textViewAuthorLabel"
-        android:text="Author"
+        android:text="@string/tvAuthor"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -110,7 +109,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/imageView"
         android:layout_marginBottom="155dp"
-        android:text="Category:"
+        android:text="@string/category"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -121,7 +120,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/textViewCategoryLabel"
         android:layout_marginEnd="12dp"
-        android:text="Category"
+        android:text="@string/tvCategory"
         android:textSize="14sp"
         android:textStyle="bold"/>
 
@@ -134,7 +133,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/imageView"
         android:layout_marginBottom="52dp"
-        android:text="ISBN:"
+        android:text="@string/isbn"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -144,7 +143,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textViewCategory"
         android:layout_alignTop="@+id/textViewISBNLabel"
-        android:text="ISBN"
+        android:text="@string/tvisbn"
         android:textSize="14sp"
         android:textStyle="bold" />
 

@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/searchView"
-        android:title="Search here"
+        android:title="@string/search_here"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom" />
 

@@ -34,7 +34,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
-        android:text="Edit Book Activity"
+        android:text="@string/edit_book_activity"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@android:color/black"/>
@@ -47,7 +47,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="192dp"
         android:layout_marginEnd="25dp"
-        android:text="Category"
+        android:text="@string/tvCategory"
         android:textSize="14sp" />
 
     <EditText
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/evTitle"
         android:layout_alignTop="@+id/textViewISBNLabel"
-        android:text="ISBN"
+        android:text="@string/tvisbn"
         android:textSize="14sp" />
 
     <EditText
@@ -84,7 +84,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="186dp"
         android:layout_marginStart="20dp"
-        android:text="Category:"
+        android:text="@string/category"
         android:textSize="14sp"
         android:textStyle="bold|italic" />
 
@@ -95,7 +95,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/textViewCategoryLabel"
         android:layout_marginBottom="141dp"
-        android:text="Author:"
+        android:text="@string/author"
         android:textSize="14sp"
         android:textStyle="bold|italic" />
 
@@ -106,7 +106,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/textViewCategoryLabel"
         android:layout_marginBottom="104dp"
-        android:text="ISBN:"
+        android:text="@string/isbn"
         android:textSize="14sp"
         android:textStyle="bold|italic" />
 
@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/editViewPrice"
         android:layout_alignStart="@+id/textViewCategoryLabel"
-        android:text="Price : "
+        android:text="@string/price"
         android:textSize="14sp"
         android:textStyle="bold|italic" />
 
@@ -127,7 +127,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/textViewCategoryLabel"
         android:layout_marginBottom="220dp"
-        android:text="Title"
+        android:text="@string/title"
         android:textSize="14sp"
         android:textStyle="bold|italic" />
 
