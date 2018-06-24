@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.example.sandy.getbooks.BooksModel;
 import com.example.sandy.getbooks.Utils.Configs;
 import com.example.sandy.getbooks.Utils.JSONParser;
 import com.google.gson.Gson;
@@ -94,4 +95,47 @@ public class Book extends java.util.HashMap<String, String> {
         }
         return (null);
     }
+
+//    public static Book updatePhoto(Book b){
+//        try {
+//            Gson gson = new Gson();
+//            BooksModel bm = new BooksModel();
+//            bm.setBookID(Integer.parseInt(b.get("BookID")));
+//            bm.setCategoryID(Integer.parseInt(b.get("CategoryID")));
+//            bm.setPrice(Double.parseDouble(b.get("Price")));
+//            bm.setStock(Integer.parseInt(b.get("Stock")));
+//            bm.setAuthor(b.get("Author"));
+//            bm.setISBN(b.get("ISBN"));
+//            bm.setTitle(b.get("Title"));
+//
+//            String json = gson.toJson(bm);
+//            URL url = new URL(Configs.BASE_HOST_URL + "Update");
+//            JSONParser.updateJSONtoUrl(Configs.BASE_HOST_URL + "Update", json);
+//        }
+//        catch (Exception e){
+//            Log.i("ala", "updatePhoto: " + e.getMessage());
+//        }
+//        return b;
+//    }
+
+    public static void updateBook(Book b) {
+        try {
+            Gson gson = new Gson();
+            BooksModel bm = new BooksModel();
+            bm.setBookID(Integer.parseInt(b.get("BookID")));
+            bm.setCategoryID(Integer.parseInt(b.get("CategoryID")));
+            bm.setPrice(Double.parseDouble(b.get("Price")));
+            bm.setStock(Integer.parseInt(b.get("Stock")));
+            bm.setAuthor(b.get("Author"));
+            bm.setISBN(b.get("ISBN"));
+            bm.setTitle(b.get("Title"));
+
+            String json = gson.toJson(bm);
+            String result = JSONParser.postStream(Configs.BASE_HOST_URL +"Update", json);
+        }
+        catch (Exception e){
+            Log.i("ala", "updatePhoto: " + e.getMessage());
+        }
+    }
 }
+
