@@ -7,19 +7,27 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sandy.getbooks.Models.Book;
 import com.example.sandy.getbooks.Models.Category;
 
+import java.util.List;
+
 public class EditBookActivity extends AppCompatActivity {
 
     BrowseBooksAdapter adapter;
+    private String BookID;
+    private Book book;
+    private ProgressBar progressBar;
 
     @SuppressLint("StaticFieldLeak")
     @Override
@@ -27,7 +35,9 @@ public class EditBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editbook);
         adapter = new BrowseBooksAdapter();
-        String BookID = getIntent().getExtras().getString("BookID");
+        BookID = getIntent().getExtras().getString("BookID");
+        progressBar=(ProgressBar) findViewById(R.id.progressBar_edit);
+        progressBar.setVisibility(View.GONE);
 
         new AsyncTask<String, Void, Bitmap>() {
             @Override
@@ -153,4 +163,59 @@ public class EditBookActivity extends AppCompatActivity {
         }
             return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+        final Intent intent=new Intent(this, BookDetailsActivity.class);
+//        intent.putExtra("BookID", BookID);
+
+        new AsyncTask<Void, Void, Bitmap>() {
+            @Override
+            protected Bitmap doInBackground(Void... params) {
+                book=Book.getBook(BookID);
+                return Book.getPhoto(book.get("ISBN"));
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap result) {
+                intent.putExtra("BookID",  book.get("BookID"));
+                intent.putExtra("bitmap", result);
+
+                if(progressBar.isShown()){
+                    progressBar.setVisibility(View.GONE);}
+                finish();
+            }
+        }.execute();
+
+        new AsyncTask<Void, Void, Category>() {
+            @Override
+            protected Category doInBackground(Void... params) {
+                return Category.getCategory(book.get("CategoryID"));
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            protected void onPostExecute(Category result) {
+                intent.putExtra("category", result.get("Name"));
+                startActivity(intent);
+
+                if(progressBar.isShown()){
+                    progressBar.setVisibility(View.GONE);}
+                finish();
+            }
+        }.execute();
+
+    }
+
 }

@@ -81,7 +81,7 @@ public class BookDetailsActivity extends AppCompatActivity {
             Intent intent = new Intent(BookDetailsActivity.this, EditBookActivity.class);
             intent.putExtra("BookID", bookId);
             startActivity(intent);
-//            finish();
+            finish();
 
             return true;
         }
@@ -97,6 +97,7 @@ public class BookDetailsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         startActivity(new Intent(this, BrowseActivity.class));
+        finish();
     }
 
 }
