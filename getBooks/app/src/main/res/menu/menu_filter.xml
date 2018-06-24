@@ -1,0 +1,42 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.sandy.getbooks.BrowseActivity">
+    <item
+        android:id="@+id/item0"
+        android:orderInCategory="100"
+        android:title="All"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/item1"
+        android:orderInCategory="101"
+        android:title="Sales"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/item2"
+        android:orderInCategory="102"
+        android:title="Children"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/item3"
+        android:orderInCategory="103"
+        android:title="Finance"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/item4"
+        android:orderInCategory="104"
+        android:title="Non-fiction"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/item5"
+        android:orderInCategory="105"
+        android:title="Technical"
+        app:showAsAction="never" />
+
+
+</menu>

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,10 +19,9 @@ import java.util.List;
 
 public class BookDetailsActivity extends AppCompatActivity {
 
-    final static int []view = {R.id.textViewTitle, R.id.textViewID, R.id.textViewAuthor, R.id.textViewCategory, R.id.textViewISBN, R.id.textViewPrice};
-    final static String []key = {"Title", "BookID", "Author", "Category", "ISBN", "Price"};
+    final static int []view = {R.id.textViewTitle, R.id.textViewID, R.id.textViewAuthor, R.id.textViewISBN, R.id.textViewPrice, R.id.textViewQty};
+    final static String []key = {"Title", "BookID", "Author", "ISBN", "Price", "Stock"};
     private String bookId;
-
     @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,23 +29,38 @@ public class BookDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bookdetails);
 
 
-        String item = getIntent().getExtras().getString("BookID");
+        final String item = getIntent().getExtras().getString("BookID");
 
         new AsyncTask<String, Void, Book>() {
 
             @Override
             protected Book doInBackground(String... params) {
-                return Book.getBook(String.valueOf(1));
+                return Book.getBook(item);
             }
-
             @Override
             protected void onPostExecute(Book result) {
                 for (int i = 0; i < view.length; i++) {
                     TextView tvTitle = (TextView) findViewById(view[i]);
+                    if(i == view.length-2){
+                        double x = Double.parseDouble(result.get(key[i]));
+                        tvTitle.setText("$" + String.format("%.2f", x));
+                    }
+                    else
+                        if(i == view.length -1){
+                            tvTitle.setText("Qty: " + result.get(key[i]));
+                        }
+                    else
                     tvTitle.setText(result.get(key[i]));
                 }
             }
         }.execute("1");
+
+        ImageView iv = (ImageView) findViewById(R.id.indvBookImage);
+        Bitmap bt = (Bitmap) getIntent().getParcelableExtra("bitmap");
+        iv.setImageBitmap(bt);
+
+        TextView cat = (TextView) findViewById(R.id.textViewCategory);
+        cat.setText(getIntent().getExtras().getString("category"));
 
         if (getIntent().hasExtra("com.example.sandy.getbooks")) {
             setContentView(R.layout.activity_bookdetails);

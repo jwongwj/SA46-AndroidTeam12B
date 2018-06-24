@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorViolet">
+    android:layout_height="match_parent">
 
     <!-- Image -->
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/indvBookImage"
         android:layout_width="164dp"
         android:layout_height="175dp"
         android:layout_alignParentLeft="true"
@@ -17,7 +14,7 @@
         android:layout_marginLeft="14dp"
         android:layout_marginStart="14dp"
         android:layout_marginTop="75dp"
-        android:background="@color/colorWhite" />
+        android:background="@drawable/back" />
 
     <!-- Title -->
     <TextView
@@ -29,9 +26,9 @@
         android:layout_marginTop="14dp"
         android:text="Title"
         android:fontFamily="serif"
-        android:textColor="@color/colorWhite"
-        android:textSize="22sp"
-        android:textStyle="bold" />
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"/>
 
     <!-- Price -->
     <TextView
@@ -48,31 +45,15 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <!-- Free Delivery Text -->
+    <!-- Qty -->
     <TextView
-        android:id="@+id/textViewFreeDeliveryLabel"
+        android:id="@+id/textViewQty"
         android:layout_width="163dp"
         android:layout_height="66dp"
         android:layout_alignEnd="@+id/textViewTitle"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="-4dp"
         android:layout_marginTop="132dp"
-        android:text="Free Delivery for purchase above S$30.00"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp"
-        android:textStyle="italic" />
-
-    <!-- Delivery Days Text -->
-    <TextView
-        android:id="@+id/textViewDelDaysLabel"
-        android:layout_width="163dp"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textViewTitle"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="-4dp"
-        android:layout_marginTop="209dp"
-        android:text="3 - 7 working days"
-        android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp"
         android:textStyle="italic" />
 
@@ -85,7 +66,6 @@
         android:layout_alignStart="@+id/imageView"
         android:layout_marginBottom="204dp"
         android:text="Book ID:"
-        android:textColor="@color/colorLightViolet"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -97,7 +77,6 @@
         android:layout_alignTop="@+id/textViewIDLabel"
         android:layout_marginStart="1dp"
         android:text="ID"
-        android:textColor="@color/colorWhite"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -110,7 +89,6 @@
         android:layout_alignStart="@+id/imageView"
         android:layout_marginBottom="103dp"
         android:text="Author:"
-        android:textColor="@color/colorLightViolet"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -121,7 +99,6 @@
         android:layout_alignStart="@+id/textViewCategory"
         android:layout_alignTop="@+id/textViewAuthorLabel"
         android:text="Author"
-        android:textColor="@color/colorWhite"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -134,7 +111,6 @@
         android:layout_alignStart="@+id/imageView"
         android:layout_marginBottom="155dp"
         android:text="Category:"
-        android:textColor="@color/colorLightViolet"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -146,7 +122,6 @@
         android:layout_alignTop="@+id/textViewCategoryLabel"
         android:layout_marginEnd="12dp"
         android:text="Category"
-        android:textColor="@color/colorWhite"
         android:textSize="14sp"
         android:textStyle="bold"/>
 
@@ -160,7 +135,6 @@
         android:layout_alignStart="@+id/imageView"
         android:layout_marginBottom="52dp"
         android:text="ISBN:"
-        android:textColor="@color/colorLightViolet"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -171,7 +145,6 @@
         android:layout_alignStart="@+id/textViewCategory"
         android:layout_alignTop="@+id/textViewISBNLabel"
         android:text="ISBN"
-        android:textColor="@color/colorWhite"
         android:textSize="14sp"
         android:textStyle="bold" />
 
