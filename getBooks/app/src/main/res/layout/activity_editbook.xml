@@ -24,7 +24,8 @@
         android:layout_width="236dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textViewTItleLabel"
-        android:layout_alignEnd="@+id/textViewCategory"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="34dp"
         android:textSize="14sp" />
 
     <TextView
@@ -44,9 +45,8 @@
         android:layout_width="235dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="192dp"
-        android:layout_marginEnd="25dp"
+        android:layout_alignStart="@+id/evTitle"
+        android:layout_marginBottom="193dp"
         android:text="@string/tvCategory"
         android:textSize="14sp" />
 
@@ -65,6 +65,15 @@
         android:layout_alignStart="@+id/evTitle"
         android:layout_alignTop="@+id/textViewISBNLabel"
         android:text="@string/tvisbn"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/editViewQty"
+        android:layout_width="244dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/evTitle"
+        android:layout_below="@+id/editViewPrice"
+        android:layout_marginTop="-55dp"
         android:textSize="14sp" />
 
     <EditText
@@ -128,6 +137,16 @@
         android:layout_alignStart="@+id/textViewCategoryLabel"
         android:layout_marginBottom="220dp"
         android:text="@string/title"
+        android:textSize="14sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/lblStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editViewQty"
+        android:layout_alignStart="@+id/textViewCategoryLabel"
+        android:text="@string/qty"
         android:textSize="14sp"
         android:textStyle="bold|italic" />
 

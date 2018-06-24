@@ -75,6 +75,9 @@ public class EditBookActivity extends AppCompatActivity {
 
                 EditText etPrice = (EditText) findViewById(R.id.editViewPrice);
                 etPrice.setText(result.get("Price"));
+
+                EditText etQty = (EditText) findViewById(R.id.editViewQty);
+                etQty.setText(result.get("Stock"));
             }
         }.execute(BookID);
 
@@ -131,6 +134,7 @@ public class EditBookActivity extends AppCompatActivity {
                     EditText etAuthor = (EditText) findViewById(R.id.editViewAuthor);
                     EditText etTitle = (EditText) findViewById(R.id.evTitle);
                     EditText etPrice = (EditText) findViewById(R.id.editViewPrice);
+                    EditText etQty = (EditText) findViewById(R.id.editViewQty);
 
                     result.remove("Author");
                     result.put("Author", etAuthor.getText().toString());
@@ -140,9 +144,10 @@ public class EditBookActivity extends AppCompatActivity {
 
                     result.remove("Price");
                     result.put("Price", etPrice.getText().toString());
+
+                    result.remove("Stock");
+                    result.put("Stock", etQty.getText().toString());
                     Book.updateBook(result);
-
-
                 }
             }.execute(BookID);
 
@@ -164,6 +169,7 @@ public class EditBookActivity extends AppCompatActivity {
             return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     public void onBackPressed() {
         final Intent intent=new Intent(this, BookDetailsActivity.class);

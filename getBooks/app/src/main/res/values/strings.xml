@@ -21,5 +21,6 @@
     <string name="getbooks">GetBooks</string>
     <string name="edit_book_activity">Edit Book Activity</string>
     <string name="title">Title</string>
+    <string name="qty">Qty:</string>
 
 </resources>
