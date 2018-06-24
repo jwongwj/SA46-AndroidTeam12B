@@ -1,6 +1,7 @@
 package com.example.sandy.getbooks;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -32,12 +33,18 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
     private boolean categoryLoadFlag =false;
     private boolean intentStarted =false;
     private android.support.v7.widget.SearchView searchView;
+    private Activity activity;
 
-    public BrowseBooksAdapter(Context context, List<Book> booksModels, ProgressBar progressBar, android.support.v7.widget.SearchView searchView){
+    public BrowseBooksAdapter(){
+
+    }
+
+    public BrowseBooksAdapter(Activity activity, Context context, List<Book> booksModels, ProgressBar progressBar, android.support.v7.widget.SearchView searchView){
         this.context = context;
         this.booksList = booksModels;
         this.progressBar = progressBar;
         this.searchView=searchView;
+        this.activity = activity;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -160,8 +167,11 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
 
                         if(imgLoadFlag=true && progressBar.isShown()){
                             progressBar.setVisibility(View.GONE);}
+
                     }
                 }.execute();
+                activity.finish();
+
             }
         });
     }

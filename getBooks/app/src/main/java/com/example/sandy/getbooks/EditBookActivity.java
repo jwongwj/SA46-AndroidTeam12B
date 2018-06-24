@@ -1,6 +1,7 @@
 package com.example.sandy.getbooks;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,13 +19,14 @@ import com.example.sandy.getbooks.Models.Category;
 
 public class EditBookActivity extends AppCompatActivity {
 
+    BrowseBooksAdapter adapter;
 
     @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editbook);
-
+        adapter = new BrowseBooksAdapter();
         String BookID = getIntent().getExtras().getString("BookID");
 
         new AsyncTask<String, Void, Bitmap>() {
@@ -130,8 +132,10 @@ public class EditBookActivity extends AppCompatActivity {
         }.execute(BookID);
 
         Toast.makeText(this, "Update Success", Toast.LENGTH_LONG).show();
-
+        adapter.notifyDataSetChanged();
         finish();
+        Intent intent = new Intent(this, BrowseActivity.class);
+        startActivity(intent);
         return true;
     }
 }
