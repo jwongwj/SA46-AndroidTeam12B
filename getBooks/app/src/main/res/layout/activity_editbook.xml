@@ -131,6 +131,12 @@
         android:textSize="14sp"
         android:textStyle="bold|italic" />
 
+    <ProgressBar
+        android:id="@+id/progressBar_edit"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>
 
