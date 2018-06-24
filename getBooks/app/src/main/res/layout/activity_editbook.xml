@@ -27,7 +27,7 @@
         android:layout_alignEnd="@+id/textViewCategory"
         android:textSize="14sp" />
 
-    <EditText
+    <TextView
         android:id="@+id/editViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
