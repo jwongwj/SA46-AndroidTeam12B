@@ -11,7 +11,18 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerBooks"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvBrowseLabel"/>
+
+    <TextView
+        android:id="@+id/tvBrowseLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textStyle="italic|bold"
+        android:textAlignment="center"
+        android:text="Displaying Results for: All" />
 
 </RelativeLayout>
 

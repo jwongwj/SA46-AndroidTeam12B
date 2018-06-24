@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sandy.getbooks.Models.Book;
@@ -40,6 +41,7 @@ public class BrowseActivity extends AppCompatActivity {
     private BrowseBooksAdapter browseBooksAdapter;
     private int columnNumbers;
     private RecyclerView recyclerView;
+    private TextView tvDisplayResults;
 
     @SuppressLint("StaticFieldLeak")
     @Override
@@ -59,6 +61,8 @@ public class BrowseActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        tvDisplayResults=(TextView) findViewById(R.id.tvBrowseLabel);
+
         new AsyncTask<Void, Void, List<Book>>() {
             @Override
             protected List<Book> doInBackground(Void... params) {
@@ -71,6 +75,7 @@ public class BrowseActivity extends AppCompatActivity {
             protected void onPostExecute(List<Book> result) {
                 BrowseBooksAdapter adapter = new BrowseBooksAdapter(getApplicationContext(), result);
                 recyclerView.setAdapter(adapter);
+                tvDisplayResults.setText("Display Results for: All ("+result.size()+")");
 
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
@@ -113,6 +118,7 @@ public class BrowseActivity extends AppCompatActivity {
 
         if (charText.length() == 0) {
             originalData.addAll(copiedData);
+            tvDisplayResults.setText("Display Results for: All ("+bookList.size()+")");
         } else {
             for (Book item : copiedData) {
                 String categoryName = null;
@@ -128,9 +134,10 @@ public class BrowseActivity extends AppCompatActivity {
                         || categoryName.toLowerCase().contains(charText)
                         || String.valueOf(item.get("Title")).toLowerCase().contains(charText)) {
                     originalData.add(item);
-
                 }
             }
+
+            tvDisplayResults.setText("Display Results for: "+searchView.getQuery()+" ("+originalData.size()+")");
         }
 
         browseBooksAdapter = new BrowseBooksAdapter(this, originalData);
@@ -148,6 +155,7 @@ public class BrowseActivity extends AppCompatActivity {
 
         if (charText.length() == 0) {
             originalData.addAll(copiedData);
+            tvDisplayResults.setText("Display Results for: All ("+bookList.size()+")");
         } else {
             for (Book item : copiedData) {
                 String categoryName = null;
@@ -162,6 +170,8 @@ public class BrowseActivity extends AppCompatActivity {
                     originalData.add(item);
                 }
             }
+
+            tvDisplayResults.setText("Display Results for: "+charText+" ("+originalData.size()+")");
         }
 
         browseBooksAdapter = new BrowseBooksAdapter(this, originalData);
