@@ -17,11 +17,12 @@
     <string name="non_fiction">Non-Fiction</string>
     <string name="technical">Technical</string>
     <string name="save">Save</string>
-    <string name="item">Item</string>
+    <string name="item">Edit Book</string>
     <string name="getbooks">GetBooks</string>
     <string name="edit_book_activity">Edit Book</string>
     <string name="title">Title:</string>
     <string name="qty">Qty:</string>
     <string name="cancel">cancel</string>
+    <string name="btncancel">Cancel</string>
 
 </resources>

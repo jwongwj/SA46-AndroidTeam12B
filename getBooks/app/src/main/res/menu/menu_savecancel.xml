@@ -17,7 +17,7 @@
         android:focusableInTouchMode="true"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
         android:orderInCategory="300"
-        android:title="cancel"
+        android:title="@string/btncancel"
         app:showAsAction="ifRoom" />
 
 </menu>
