@@ -96,8 +96,9 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
             protected void onPostExecute(Bitmap result) {
                 holder.BookImage.setImageBitmap(result);
 
-                if(intentStarted==false && progressBar.isShown()){
-                    progressBar.setVisibility(View.GONE);}
+                if(!intentStarted && progressBar.isShown()){
+                    progressBar.setVisibility(View.GONE);
+                }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 

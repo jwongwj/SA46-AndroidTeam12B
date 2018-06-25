@@ -23,9 +23,9 @@
         android:id="@+id/evTitle"
         android:layout_width="236dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textViewTItleLabel"
+        android:layout_above="@+id/textViewCategoryLabel"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="34dp"
+        android:layout_marginEnd="32dp"
         android:textSize="14sp" />
 
     <TextView
@@ -54,7 +54,7 @@
         android:id="@+id/editViewAuthor"
         android:layout_width="242dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textViewAuthorLabel"
+        android:layout_alignBaseline="@+id/textViewAuthorLabel"
         android:layout_alignEnd="@+id/evTitle"
         android:textSize="14sp" />
 
@@ -89,10 +89,9 @@
         android:id="@+id/textViewCategoryLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="186dp"
-        android:layout_marginStart="20dp"
+        android:layout_alignTop="@+id/textViewCategory"
+        android:layout_marginStart="24dp"
         android:text="@string/category"
         android:textSize="14sp"
         android:textStyle="bold|italic" />
@@ -103,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/textViewCategoryLabel"
-        android:layout_marginBottom="141dp"
+        android:layout_marginBottom="146dp"
         android:text="@string/author"
         android:textSize="14sp"
         android:textStyle="bold|italic" />
@@ -133,9 +132,8 @@
         android:id="@+id/textViewTItleLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignBaseline="@+id/evTitle"
         android:layout_alignStart="@+id/textViewCategoryLabel"
-        android:layout_marginBottom="220dp"
         android:text="@string/title"
         android:textSize="14sp"
         android:textStyle="bold|italic" />

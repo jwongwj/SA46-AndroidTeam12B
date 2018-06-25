@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">getBooks</string>
-    <string name="price">Price</string>
+    <string name="price">Price:</string>
     <string name="book_id">Book ID:</string>
     <string name="id">ID</string>
     <string name="author">Author:</string>
@@ -14,13 +14,14 @@
     <string name="sales">Sales</string>
     <string name="children">Children</string>
     <string name="finance">Finance</string>
-    <string name="non_fiction">Non-fiction</string>
+    <string name="non_fiction">Non-Fiction</string>
     <string name="technical">Technical</string>
     <string name="save">Save</string>
     <string name="item">Item</string>
     <string name="getbooks">GetBooks</string>
-    <string name="edit_book_activity">Edit Book Activity</string>
-    <string name="title">Title</string>
+    <string name="edit_book_activity">Edit Book</string>
+    <string name="title">Title:</string>
     <string name="qty">Qty:</string>
+    <string name="cancel">cancel</string>
 
 </resources>
