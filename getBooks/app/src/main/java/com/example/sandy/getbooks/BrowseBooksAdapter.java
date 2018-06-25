@@ -99,7 +99,7 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
                 if(intentStarted==false && progressBar.isShown()){
                     progressBar.setVisibility(View.GONE);}
             }
-        }.execute();
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         new AsyncTask<Void, Void, Category>() {
             @Override
@@ -111,7 +111,7 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
             protected void onPostExecute(Category result) {
                 holder.category.setText(result.get("Name"));
             }
-        }.execute();
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
