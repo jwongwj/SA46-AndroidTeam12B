@@ -195,7 +195,6 @@ public class EditBookActivity extends AppCompatActivity {
 
                 if(progressBar.isShown()){
                     progressBar.setVisibility(View.GONE);}
-                finish();
             }
         }.execute();
 
@@ -213,12 +212,13 @@ public class EditBookActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(Category result) {
+                finish();
                 intent.putExtra("category", result.get("Name"));
                 startActivity(intent);
 
                 if(progressBar.isShown()){
                     progressBar.setVisibility(View.GONE);}
-                finish();
+
             }
         }.execute();
 

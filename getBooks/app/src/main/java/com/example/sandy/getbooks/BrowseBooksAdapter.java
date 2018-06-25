@@ -143,7 +143,7 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
 
                         if(categoryLoadFlag=true && progressBar.isShown()){
                             progressBar.setVisibility(View.GONE);}
-                            activity.finish();
+
                     }
                 }.execute();
 
@@ -161,6 +161,7 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
 
                     @Override
                     protected void onPostExecute(Category result) {
+                        activity.finish();
                         intent.putExtra("category", result.get("Name"));
                         v.getContext().startActivity(intent);
 
@@ -168,7 +169,7 @@ public class BrowseBooksAdapter extends RecyclerView.Adapter<BrowseBooksAdapter.
 
                         if(imgLoadFlag=true && progressBar.isShown()){
                             progressBar.setVisibility(View.GONE);}
-                            activity.finish();
+
                     }
                 }.execute();
 
